@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#3182f6">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -607,15 +607,23 @@
       z-index: 20;
       display: grid;
       place-items: center;
-      padding: 24px;
+      width: 100%;
+      padding:
+        max(12px, env(safe-area-inset-top))
+        max(12px, env(safe-area-inset-right))
+        max(12px, env(safe-area-inset-bottom))
+        max(12px, env(safe-area-inset-left));
       background: rgba(21, 27, 40, 0.58);
+      overflow: hidden;
     }
 
     .modal[hidden] { display: none; }
 
     .modal-content {
-      width: min(980px, 96vw);
-      max-height: 92vh;
+      width: min(980px, 100%);
+      max-width: 100%;
+      max-height: calc(100dvh - 24px);
+      margin: auto;
       overflow: hidden;
       background: #fff;
       border-radius: 22px;
@@ -650,7 +658,7 @@
     .chart-preview {
       display: block;
       width: 100%;
-      max-height: calc(92vh - 70px);
+      max-height: calc(100dvh - 94px);
       object-fit: contain;
       padding: 16px;
       background: #fff;
@@ -659,8 +667,9 @@
     .day-detail {
       display: grid;
       gap: 10px;
-      max-height: calc(92vh - 70px);
+      max-height: calc(100dvh - 94px);
       overflow: auto;
+      overscroll-behavior: contain;
       padding: 16px;
       background: #f7f9fc;
     }
@@ -776,6 +785,44 @@
       .entry-amount {
         grid-column: 2;
         text-align: left;
+      }
+
+      .modal {
+        place-items: center;
+        padding:
+          max(8px, env(safe-area-inset-top))
+          max(8px, env(safe-area-inset-right))
+          max(8px, env(safe-area-inset-bottom))
+          max(8px, env(safe-area-inset-left));
+      }
+
+      .modal-content {
+        width: 100%;
+        max-height: calc(100dvh - 16px);
+        border-radius: 18px;
+      }
+
+      .modal-head {
+        padding: 12px 14px;
+      }
+
+      .day-detail {
+        max-height: calc(100dvh - 78px);
+        padding: 10px;
+      }
+
+      .chart-preview {
+        max-height: calc(100dvh - 78px);
+        padding: 8px;
+      }
+
+      .day-chart-card {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .day-legend {
+        width: 100%;
       }
     }
   </style>
