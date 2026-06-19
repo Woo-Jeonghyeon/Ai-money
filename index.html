@@ -127,8 +127,20 @@
       margin-bottom: 24px;
     }
 
+    .phone-title {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
     .phone-head strong { font-size: 18px; }
-    .phone-head span { color: var(--muted); font-size: 13px; }
+    .phone-head span {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
 
     .balance-label {
       color: var(--muted);
@@ -308,10 +320,10 @@
     }
 
     .export-actions {
-      display: inline-flex;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
       gap: 6px;
       align-items: center;
-      flex-wrap: wrap;
       justify-content: flex-end;
     }
 
@@ -762,9 +774,54 @@
         font-size: 22px;
       }
 
-      .summary-grid,
-      .input-row {
+      .summary-grid {
         grid-template-columns: 1fr;
+      }
+
+      .phone-head {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        align-items: stretch;
+        margin-bottom: 20px;
+      }
+
+      .phone-title {
+        justify-content: flex-start;
+      }
+
+      .export-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: 100%;
+      }
+
+      .export-actions .quiet-btn {
+        width: 100%;
+        min-height: 40px;
+        padding: 0 8px;
+        text-align: center;
+      }
+
+      .input-row {
+        grid-template-columns: minmax(0, 1fr) 106px;
+        align-items: stretch;
+      }
+
+      .type-select,
+      .primary-btn {
+        min-height: 46px;
+      }
+
+      .chips {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+      }
+
+      .chip {
+        padding: 8px 4px;
+        text-align: center;
+        white-space: nowrap;
       }
 
       .panel,
@@ -829,6 +886,22 @@
         width: 100%;
       }
     }
+
+    @media (max-width: 350px) {
+      .phone-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+
+      .chips {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   </style>
 </head>
 <body>
@@ -848,7 +921,7 @@
     <section class="hero">
       <aside class="phone-card">
         <div class="phone-head">
-          <div>
+          <div class="phone-title">
             <strong>AI 가계부</strong>
             <span>자동 분류 모드</span>
           </div>
