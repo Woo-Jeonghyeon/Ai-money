@@ -215,6 +215,471 @@
       line-height: 1.15;
     }
 
+    .pet-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 124px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      min-height: 154px;
+      margin-bottom: 18px;
+      padding: 14px;
+      overflow: hidden;
+      border: 1px solid #dceaff;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.95), transparent 32%),
+        linear-gradient(135deg, #eef6ff 0%, #f8fbff 48%, #fff7ed 100%);
+    }
+
+    .pet-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -24px -48px auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(49, 130, 246, 0.12);
+    }
+
+    .pet-stage {
+      position: relative;
+      display: grid;
+      place-items: end center;
+      height: 128px;
+      perspective: 520px;
+      z-index: 1;
+    }
+
+    .money-dog {
+      position: relative;
+      width: 94px;
+      height: 116px;
+      transform-style: preserve-3d;
+      animation: petIdle 2.8s ease-in-out infinite;
+    }
+
+    .pet-card.is-happy .money-dog { animation: petHappy 0.8s ease-in-out 2, petIdle 2.8s ease-in-out 1.6s infinite; }
+    .pet-card.is-sad .money-dog { animation: petSad 0.85s ease-in-out 2, petIdle 2.8s ease-in-out 1.7s infinite; }
+
+    .dog-ear {
+      position: absolute;
+      top: 13px;
+      width: 28px;
+      height: 42px;
+      border-radius: 18px 18px 22px 22px;
+      background: #9b5f35;
+      box-shadow: inset -5px -6px 0 rgba(0, 0, 0, 0.08);
+      z-index: 1;
+    }
+
+    .dog-ear.left { left: 9px; transform: rotate(-24deg) translateZ(-6px); }
+    .dog-ear.right { right: 9px; transform: rotate(24deg) translateZ(-6px); }
+
+    .dog-head {
+      position: absolute;
+      top: 9px;
+      left: 17px;
+      width: 60px;
+      height: 62px;
+      border-radius: 28px 28px 24px 24px;
+      background: linear-gradient(145deg, #d99b5d 0%, #c78447 100%);
+      box-shadow: 0 10px 18px rgba(111, 72, 36, 0.18), inset -8px -8px 0 rgba(0, 0, 0, 0.07);
+      z-index: 2;
+    }
+
+    .dog-face {
+      position: absolute;
+      left: 13px;
+      bottom: 7px;
+      width: 34px;
+      height: 27px;
+      border-radius: 50% 50% 45% 45%;
+      background: #ffe2bd;
+    }
+
+    .dog-eye {
+      position: absolute;
+      top: 23px;
+      width: 6px;
+      height: 8px;
+      border-radius: 50%;
+      background: #253044;
+      z-index: 3;
+    }
+
+    .dog-eye.left { left: 32px; }
+    .dog-eye.right { right: 32px; }
+
+    .dog-nose {
+      position: absolute;
+      left: 27px;
+      bottom: 18px;
+      width: 8px;
+      height: 6px;
+      border-radius: 50%;
+      background: #253044;
+      z-index: 4;
+    }
+
+    .dog-mouth {
+      position: absolute;
+      left: 28px;
+      bottom: 11px;
+      width: 7px;
+      height: 4px;
+      border-bottom: 2px solid #253044;
+      border-radius: 0 0 10px 10px;
+      z-index: 4;
+    }
+
+    .dog-body {
+      position: absolute;
+      left: 20px;
+      bottom: 8px;
+      width: 56px;
+      height: 52px;
+      border-radius: 23px 23px 18px 18px;
+      background: #3182f6;
+      box-shadow: 0 16px 22px rgba(49, 130, 246, 0.18), inset -8px -8px 0 rgba(0, 0, 0, 0.08);
+      z-index: 1;
+    }
+
+    .dog-body::after {
+      content: "₩";
+      position: absolute;
+      left: 50%;
+      top: 13px;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 900;
+    }
+
+    .dog-tail {
+      position: absolute;
+      right: -1px;
+      bottom: 42px;
+      width: 35px;
+      height: 35px;
+      border: 10px solid #c78447;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+      transform: rotate(36deg);
+      z-index: 0;
+    }
+
+    .dog-arm {
+      position: absolute;
+      top: 64px;
+      width: 14px;
+      height: 38px;
+      border-radius: 999px;
+      background: #c78447;
+      transform-origin: 50% 8px;
+      z-index: 0;
+    }
+
+    .dog-arm.left { left: 10px; transform: rotate(26deg); }
+    .dog-arm.right { right: 10px; transform: rotate(-26deg); }
+
+    .dog-foot {
+      position: absolute;
+      bottom: 0;
+      width: 22px;
+      height: 12px;
+      border-radius: 999px;
+      background: #7b4a2c;
+      z-index: 2;
+    }
+
+    .dog-foot.left { left: 24px; }
+    .dog-foot.right { right: 22px; }
+
+    .dog-shadow {
+      position: absolute;
+      bottom: 0;
+      width: 92px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(70, 89, 118, 0.14);
+      filter: blur(1px);
+    }
+
+    .pet-card.pet-pomeranian .dog-ear {
+      top: 8px;
+      width: 26px;
+      height: 32px;
+      border-radius: 10px 14px 16px 16px;
+      background: linear-gradient(145deg, #fff8e7 0%, #edd3ad 100%);
+    }
+
+    .pet-card.pet-pomeranian .dog-ear.left { left: 15px; transform: rotate(-42deg) translateZ(-6px); }
+    .pet-card.pet-pomeranian .dog-ear.right { right: 15px; transform: rotate(42deg) translateZ(-6px); }
+
+    .pet-card.pet-pomeranian .dog-head {
+      border-radius: 32px 32px 24px 24px;
+      background: radial-gradient(circle at 50% 28%, #fff 0 34%, #fff6df 68%, #efd8b2 100%);
+      box-shadow: 0 12px 20px rgba(160, 128, 88, 0.18), inset -8px -8px 0 rgba(210, 168, 112, 0.12);
+    }
+
+    .pet-card.pet-pomeranian .dog-head::before,
+    .pet-card.pet-pomeranian .dog-head::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      width: 20px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      z-index: -1;
+    }
+
+    .pet-card.pet-pomeranian .dog-head::before { left: -8px; }
+    .pet-card.pet-pomeranian .dog-head::after { right: -8px; }
+
+    .pet-card.pet-pomeranian .dog-face {
+      background: #fff2d8;
+    }
+
+    .pet-card.pet-pomeranian .dog-body {
+      border-radius: 26px 26px 20px 20px;
+      background: linear-gradient(145deg, #fffef8 0%, #f3dfbd 100%);
+      box-shadow: 0 16px 22px rgba(180, 139, 92, 0.16), inset -9px -9px 0 rgba(176, 131, 79, 0.1);
+    }
+
+    .pet-card.pet-pomeranian .dog-arm,
+    .pet-card.pet-pomeranian .dog-foot {
+      background: #ead1ac;
+    }
+
+    .pet-card.pet-pomeranian .dog-tail {
+      right: -8px;
+      bottom: 39px;
+      width: 46px;
+      height: 46px;
+      border-width: 12px;
+      border-top-color: #fff9ea;
+      border-right-color: #f2dcb9;
+    }
+
+    .pet-card.pet-pomeranian .dog-body::after { color: #3182f6; }
+
+    .pet-card.pet-munchkin .money-dog {
+      height: 106px;
+    }
+
+    .pet-card.pet-munchkin .dog-ear {
+      top: 6px;
+      width: 27px;
+      height: 29px;
+      border-radius: 4px;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      background: linear-gradient(145deg, #c7a27b 0%, #8f6848 100%);
+    }
+
+    .pet-card.pet-munchkin .dog-ear.left { left: 14px; transform: rotate(-18deg); }
+    .pet-card.pet-munchkin .dog-ear.right { right: 14px; transform: rotate(18deg); }
+
+    .pet-card.pet-munchkin .dog-head {
+      top: 14px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, #d9b68e 0%, #b9865c 100%);
+    }
+
+    .pet-card.pet-munchkin .dog-face {
+      width: 38px;
+      left: 11px;
+      background: #f6dac0;
+    }
+
+    .pet-card.pet-munchkin .dog-body {
+      left: 13px;
+      bottom: 10px;
+      width: 72px;
+      height: 42px;
+      border-radius: 28px 28px 18px 18px;
+      background: linear-gradient(145deg, #d6a16d 0%, #9b6a45 100%);
+    }
+
+    .pet-card.pet-munchkin .dog-arm { display: none; }
+
+    .pet-card.pet-munchkin .dog-foot {
+      width: 16px;
+      height: 9px;
+      background: #7a5137;
+    }
+
+    .pet-card.pet-munchkin .dog-tail {
+      right: -11px;
+      bottom: 32px;
+      width: 40px;
+      height: 21px;
+      border: 0;
+      border-radius: 999px;
+      background: #8f6848;
+      transform: rotate(-18deg);
+    }
+
+    .pet-card.pet-shiba .dog-ear {
+      top: 4px;
+      height: 34px;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      border-radius: 6px;
+      background: #d27a31;
+    }
+
+    .pet-card.pet-shiba .dog-head,
+    .pet-card.pet-shiba .dog-arm {
+      background: linear-gradient(145deg, #de8d3f 0%, #b96524 100%);
+    }
+
+    .pet-card.pet-shiba .dog-body {
+      background: linear-gradient(145deg, #de8d3f 0%, #b96524 100%);
+    }
+
+    .pet-card.pet-shiba .dog-tail {
+      border-top-color: #de8d3f;
+      border-right-color: #b96524;
+    }
+
+    .pet-card.pet-poodle .dog-ear {
+      width: 26px;
+      height: 48px;
+      border-radius: 999px;
+      background: #d9b9e8;
+    }
+
+    .pet-card.pet-poodle .dog-head {
+      background: radial-gradient(circle at 50% 18%, #f4dcff 0 26%, #d9b9e8 72%, #b98bd2 100%);
+    }
+
+    .pet-card.pet-poodle .dog-body,
+    .pet-card.pet-poodle .dog-arm {
+      background: linear-gradient(145deg, #d9b9e8 0%, #a876c4 100%);
+    }
+
+    .pet-card.pet-poodle .dog-tail {
+      width: 24px;
+      height: 24px;
+      border: 0;
+      border-radius: 50%;
+      background: #d9b9e8;
+      right: -7px;
+      bottom: 45px;
+    }
+
+    .pet-card.pet-good .dog-body {
+      background: linear-gradient(145deg, #26c281 0%, #15936a 100%);
+    }
+
+    .pet-card.pet-good .dog-arm.right {
+      animation: petWave 1.2s ease-in-out infinite;
+    }
+
+    .pet-card.pet-tight .dog-body {
+      background: linear-gradient(145deg, #f59e0b 0%, #ef6c00 100%);
+    }
+
+    .pet-card.pet-tight .dog-body::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      top: 8px;
+      height: 10px;
+      border-radius: 999px;
+      background: #fef3c7;
+    }
+
+    .pet-card.pet-danger .dog-body {
+      background: linear-gradient(145deg, #64748b 0%, #334155 100%);
+    }
+
+    .pet-card.pet-danger .dog-mouth {
+      bottom: 9px;
+      border-bottom: 0;
+      border-top: 2px solid #253044;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .pet-info {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+
+    .pet-info span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .pet-info strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .pet-info p {
+      margin: 0;
+      color: #516079;
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    .pet-selector {
+      position: relative;
+      z-index: 1;
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .pet-choice {
+      min-height: 34px;
+      padding: 0 8px;
+      border: 1px solid #dceaff;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      color: #516079;
+      font-size: 12px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .pet-choice.is-selected {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(49, 130, 246, 0.18);
+    }
+
+    @keyframes petIdle {
+      0%, 100% { transform: rotateX(0deg) rotateY(-7deg) translateY(0); }
+      50% { transform: rotateX(2deg) rotateY(7deg) translateY(-5px); }
+    }
+
+    @keyframes petHappy {
+      0%, 100% { transform: translateY(0) rotateZ(0); }
+      35% { transform: translateY(-18px) rotateZ(-5deg); }
+      70% { transform: translateY(-8px) rotateZ(5deg); }
+    }
+
+    @keyframes petSad {
+      0%, 100% { transform: translateY(0) rotateZ(0); }
+      45% { transform: translateY(8px) rotateZ(-3deg); }
+    }
+
+    @keyframes petWave {
+      0%, 100% { transform: rotate(-26deg); }
+      50% { transform: rotate(-66deg); }
+    }
+
     .input-box {
       display: grid;
       gap: 10px;
@@ -791,6 +1256,19 @@
         grid-template-columns: 1fr;
       }
 
+      .pet-card {
+        grid-template-columns: 112px minmax(0, 1fr);
+        padding: 12px;
+      }
+
+      .pet-stage {
+        height: 118px;
+      }
+
+      .money-dog {
+        transform: scale(0.92);
+      }
+
       .phone-head {
         display: grid;
         grid-template-columns: 1fr;
@@ -975,6 +1453,40 @@
           </div>
         </div>
 
+        <div class="pet-card pet-good pet-pomeranian" id="petCard" aria-label="재정 상태 캐릭터">
+          <div class="pet-stage">
+            <div class="dog-shadow"></div>
+            <div class="money-dog" aria-hidden="true">
+              <div class="dog-ear left"></div>
+              <div class="dog-ear right"></div>
+              <div class="dog-arm left"></div>
+              <div class="dog-arm right"></div>
+              <div class="dog-tail"></div>
+              <div class="dog-body"></div>
+              <div class="dog-foot left"></div>
+              <div class="dog-foot right"></div>
+              <div class="dog-head">
+                <div class="dog-face"></div>
+                <div class="dog-eye left"></div>
+                <div class="dog-eye right"></div>
+                <div class="dog-nose"></div>
+                <div class="dog-mouth"></div>
+              </div>
+            </div>
+          </div>
+          <div class="pet-info">
+            <span id="petMood">여유 모드</span>
+            <strong id="petTitle">포메라니안이 신났어요</strong>
+            <p id="petMessage">잔액이 안정적이라 복슬복슬하게 웃고 있어요.</p>
+          </div>
+          <div class="pet-selector" id="petSelector" aria-label="캐릭터 선택">
+            <button class="pet-choice is-selected" data-pet="pomeranian">포메</button>
+            <button class="pet-choice" data-pet="munchkin">먼치킨</button>
+            <button class="pet-choice" data-pet="shiba">시바</button>
+            <button class="pet-choice" data-pet="poodle">푸들</button>
+          </div>
+        </div>
+
         <div class="input-box">
           <textarea id="naturalInput" placeholder="예:
 오늘 점심 한식뷔페 12000원
@@ -1070,6 +1582,14 @@
     const STORAGE_KEY = "ai-budget-book-v2";
     const OLD_STORAGE_KEY = "ai-budget-book-v1";
     const BACKUP_STORAGE_KEY = "ai-budget-book-backup-before-clear";
+    const PET_STORAGE_KEY = "ai-budget-book-pet";
+
+    const petProfiles = {
+      pomeranian: { name: "포메라니안", moodName: "포메" },
+      munchkin: { name: "먼치킨", moodName: "먼치킨" },
+      shiba: { name: "시바", moodName: "시바" },
+      poodle: { name: "푸들", moodName: "푸들" }
+    };
 
     const categories = [
       { name: "군것질", icon: "🍬", color: "#ec4899", words: ["새콤달콤", "과자", "젤리", "사탕", "초콜릿", "초코", "아이스크림", "군것질", "간식", "빼빼로", "홈런볼", "꼬깔콘", "포카칩", "허니버터칩", "마이쮸", "멘토스", "껌"] },
@@ -1095,7 +1615,8 @@
     const state = {
       entries: normalizeLoadedEntries(loadEntries()),
       month: toMonthValue(new Date()),
-      ledgerPage: 0
+      ledgerPage: 0,
+      pet: loadPetChoice()
     };
 
     const els = {
@@ -1122,6 +1643,11 @@
       topCategory: document.getElementById("topCategory"),
       dailyAverage: document.getElementById("dailyAverage"),
       netBalance: document.getElementById("netBalance"),
+      petCard: document.getElementById("petCard"),
+      petMood: document.getElementById("petMood"),
+      petTitle: document.getElementById("petTitle"),
+      petMessage: document.getElementById("petMessage"),
+      petSelector: document.getElementById("petSelector"),
       monthSummary: document.getElementById("monthSummary"),
       calendar: document.getElementById("calendar"),
       categoryBars: document.getElementById("categoryBars"),
@@ -1172,6 +1698,14 @@
       state.ledgerPage += 1;
       render();
     });
+    els.petSelector.querySelectorAll("[data-pet]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.pet = petProfiles[button.dataset.pet] ? button.dataset.pet : "pomeranian";
+        localStorage.setItem(PET_STORAGE_KEY, state.pet);
+        render();
+        triggerPetReaction("income");
+      });
+    });
     els.exportBtn.addEventListener("click", exportCsv);
     els.exportTextBtn.addEventListener("click", exportText);
     els.importJsonBtn.addEventListener("click", () => els.importJsonInput.click());
@@ -1212,6 +1746,7 @@
       els.naturalInput.value = "";
       persist();
       render();
+      triggerPetReaction(parsed.some((entry) => entry.type === "income") ? "income" : "expense");
       showToast(`${parsed.length}건을 AI가 자동 분류했습니다.`);
     }
 
@@ -1344,6 +1879,7 @@
       els.monthSummary.textContent = budgetSource.kind === "previous"
         ? `${budgetSource.month} 수입을 이어받아 이번 달 예산으로 계산 중입니다.`
         : `${monthEntries.length}건을 분석했고, 분류는 자동으로 판단합니다.`;
+      updatePetStatus({ totalBalance, monthNet: income - total, remaining, total, budget });
 
       renderCalendar(expenses);
       renderCategoryBars(categoryTotals, total);
@@ -1352,6 +1888,56 @@
       drawDailyChart(expenses);
       drawCategoryChart(categoryTotals);
       drawMonthlyTrendChart();
+    }
+
+    function updatePetStatus({ totalBalance, monthNet, remaining, total, budget }) {
+      if (!els.petCard) return;
+      applyPetChoice();
+      const pet = petProfiles[state.pet] || petProfiles.pomeranian;
+      const useRatio = budget > 0 ? total / budget : 0;
+      let mode = "good";
+      let mood = "여유 모드";
+      let title = `${pet.name}이 신났어요`;
+      let message = "잔액이 안정적이라 복슬복슬하게 웃고 있어요.";
+
+      if (totalBalance < 0 || monthNet < 0 || remaining < 0) {
+        mode = "danger";
+        mood = "절약 모드";
+        title = `${pet.name}이 풀이 죽었어요`;
+        message = "지출이 수입보다 커서 표정이 시무룩해졌어요.";
+      } else if (useRatio >= 0.7) {
+        mode = "tight";
+        mood = "관리 모드";
+        title = `${pet.name}이 긴장했어요`;
+        message = "예산을 꽤 써서 오늘은 살짝 긴장한 얼굴이에요.";
+      }
+
+      els.petCard.classList.remove("pet-good", "pet-tight", "pet-danger");
+      els.petCard.classList.add(`pet-${mode}`);
+      els.petMood.textContent = mood;
+      els.petTitle.textContent = title;
+      els.petMessage.textContent = message;
+    }
+
+    function applyPetChoice() {
+      if (!els.petCard) return;
+      const pet = petProfiles[state.pet] ? state.pet : "pomeranian";
+      state.pet = pet;
+      els.petCard.classList.remove("pet-pomeranian", "pet-munchkin", "pet-shiba", "pet-poodle");
+      els.petCard.classList.add(`pet-${pet}`);
+      els.petSelector.querySelectorAll("[data-pet]").forEach((button) => {
+        button.classList.toggle("is-selected", button.dataset.pet === pet);
+      });
+    }
+
+    function triggerPetReaction(type) {
+      if (!els.petCard) return;
+      els.petCard.classList.remove("is-happy", "is-sad");
+      void els.petCard.offsetWidth;
+      els.petCard.classList.add(type === "income" ? "is-happy" : "is-sad");
+      window.setTimeout(() => {
+        els.petCard.classList.remove("is-happy", "is-sad");
+      }, 1800);
     }
 
     function applyForcedCategoryCorrections() {
@@ -2093,6 +2679,11 @@
 
     function persist() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.entries));
+    }
+
+    function loadPetChoice() {
+      const saved = localStorage.getItem(PET_STORAGE_KEY);
+      return petProfiles[saved] ? saved : "pomeranian";
     }
 
     function loadEntries() {
