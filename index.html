@@ -1676,7 +1676,7 @@
     els.parseBtn.addEventListener("click", addNaturalEntries);
     els.dailyChart.addEventListener("click", () => openChartModal(els.dailyChart, "날짜별 지출"));
     els.categoryChart.addEventListener("click", () => openChartModal(els.categoryChart, "카테고리 분포"));
-    els.monthlyTrendChart.addEventListener("click", () => openChartModal(els.monthlyTrendChart, "월별 수입·지출 추이"));
+    els.monthlyTrendChart.addEventListener("click", () => openChartModal(els.monthlyTrendChart, "10일별 수입·지출 추이"));
     els.closeChartModal.addEventListener("click", closeChartModal);
     els.chartModal.addEventListener("click", (event) => {
       if (event.target === els.chartModal) closeChartModal();
@@ -2162,15 +2162,16 @@
       const ctx = canvas.getContext("2d");
       clearCanvas(ctx, canvas);
 
-      const months = getMonthlyTrendRange();
+      const periods = getTenDayTrendRange();
       const totals = state.entries.reduce((acc, entry) => {
-        const month = entry.date.slice(0, 7);
-        if (!acc[month]) acc[month] = { income: 0, expense: 0 };
-        acc[month][entry.type] += entry.amount;
+        const key = getTenDayPeriodKey(entry.date);
+        if (!key) return acc;
+        if (!acc[key]) acc[key] = { income: 0, expense: 0 };
+        acc[key][entry.type] += entry.amount;
         return acc;
       }, {});
-      const incomeValues = months.map((month) => totals[month]?.income || 0);
-      const expenseValues = months.map((month) => totals[month]?.expense || 0);
+      const incomeValues = periods.map((period) => totals[period.key]?.income || 0);
+      const expenseValues = periods.map((period) => totals[period.key]?.expense || 0);
       const max = Math.max(...incomeValues, ...expenseValues, 1);
 
       const left = 86;
@@ -2180,14 +2181,14 @@
       const chartWidth = canvas.width - left - right;
       const chartHeight = canvas.height - top - bottom;
       const axisY = top + chartHeight;
-      const stepX = months.length > 1 ? chartWidth / (months.length - 1) : 0;
+      const stepX = periods.length > 1 ? chartWidth / (periods.length - 1) : 0;
 
       ctx.fillStyle = "#151b28";
       ctx.font = "900 26px Segoe UI";
-      ctx.fillText("월별 수입·지출 추이", left, 36);
+      ctx.fillText("10일별 수입·지출 추이", left, 36);
       ctx.fillStyle = "#768196";
       ctx.font = "13px Segoe UI";
-      ctx.fillText(`${formatMonthLabel(months[0])}부터 ${formatMonthLabel(months[months.length - 1])}까지`, left, 60);
+      ctx.fillText(`${periods[0].label}부터 ${periods[periods.length - 1].label}까지`, left, 60);
 
       drawTrendLegend(ctx, canvas.width - 270, 30, "#3182f6", "수입");
       drawTrendLegend(ctx, canvas.width - 155, 30, "#ef4444", "지출");
@@ -2209,14 +2210,14 @@
         ctx.fillText(shortWon(value), left - 10, y + 4);
       }
 
-      const labelEvery = Math.max(1, Math.ceil(months.length / 12));
-      months.forEach((month, index) => {
-        if (index % labelEvery !== 0 && index !== months.length - 1) return;
-        const x = months.length > 1 ? left + stepX * index : left + chartWidth / 2;
+      const labelEvery = Math.max(1, Math.ceil(periods.length / 12));
+      periods.forEach((period, index) => {
+        if (index % labelEvery !== 0 && index !== periods.length - 1) return;
+        const x = periods.length > 1 ? left + stepX * index : left + chartWidth / 2;
         ctx.fillStyle = "#768196";
         ctx.font = "11px Segoe UI";
         ctx.textAlign = "center";
-        ctx.fillText(formatTrendMonth(month), x, axisY + 24);
+        ctx.fillText(period.shortLabel, x, axisY + 24);
       });
 
       drawTrendLine(ctx, incomeValues, "#3182f6", left, top, chartWidth, chartHeight, max);
@@ -2285,6 +2286,29 @@
         cursor.setMonth(cursor.getMonth() + 1);
       }
       return months;
+    }
+
+    function getTenDayTrendRange() {
+      const months = getMonthlyTrendRange();
+      return months.flatMap((month) => {
+        const days = daysInMonth(month);
+        return [1, 11, 21].map((startDay) => {
+          const endDay = startDay === 21 ? days : Math.min(startDay + 9, days);
+          return {
+            key: `${month}-${String(startDay).padStart(2, "0")}`,
+            label: `${formatMonthLabel(month)} ${startDay}~${endDay}일`,
+            shortLabel: `${Number(month.slice(5, 7))}.${startDay}`
+          };
+        });
+      });
+    }
+
+    function getTenDayPeriodKey(dateValue) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) return null;
+      const month = dateValue.slice(0, 7);
+      const day = Number(dateValue.slice(8, 10));
+      const startDay = day <= 10 ? 1 : day <= 20 ? 11 : 21;
+      return `${month}-${String(startDay).padStart(2, "0")}`;
     }
 
     function formatTrendMonth(month) {
