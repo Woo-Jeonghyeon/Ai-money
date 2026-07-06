@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#3182f6">
+  <meta name="theme-color" content="#05070b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="AI 가계부">
@@ -133,6 +133,24 @@
       gap: 6px;
       min-width: 0;
       white-space: nowrap;
+    }
+
+    .account-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 150px;
+      margin-left: 2px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 850;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: middle;
     }
 
     .phone-head strong { font-size: 18px; }
@@ -786,7 +804,7 @@
 
     .export-actions {
       display: grid;
-      grid-template-columns: repeat(3, auto);
+      grid-template-columns: repeat(4, auto);
       gap: 6px;
       align-items: center;
       justify-content: flex-end;
@@ -1222,6 +1240,182 @@
       flex: 0 0 auto;
     }
 
+    /* Coinbase Wallet-inspired dark app shell */
+    :root {
+      --bg: #05070b;
+      --card: #0b0d12;
+      --ink: #f8fafc;
+      --muted: #8a93a5;
+      --line: #202632;
+      --blue: #377dff;
+      --blue-soft: rgba(55, 125, 255, 0.16);
+      --green: #25c985;
+      --red: #ff5a5f;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 20% -10%, rgba(55, 125, 255, 0.24), transparent 34%),
+        radial-gradient(circle at 100% 12%, rgba(92, 52, 255, 0.16), transparent 28%),
+        #05070b;
+    }
+
+    .title-wrap h1,
+    .phone-head strong,
+    .panel-head h2,
+    .entry-title strong {
+      color: #f8fafc;
+    }
+
+    .month-picker,
+    .phone-card,
+    .panel,
+    .modal-content {
+      background: rgba(11, 13, 18, 0.96);
+      border-color: #202632;
+      box-shadow: var(--shadow);
+    }
+
+    .phone-card {
+      border-radius: 30px;
+      outline: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .panel {
+      border-radius: 28px;
+    }
+
+    .month-picker button,
+    .quiet-btn,
+    .page-token,
+    .mini-btn {
+      background: #171b24;
+      color: #dce4f2;
+    }
+
+    .month-picker input,
+    .type-select,
+    textarea {
+      color: #f8fafc;
+    }
+
+    .total-balance-card {
+      background:
+        radial-gradient(circle at 88% 8%, rgba(55, 125, 255, 0.36), transparent 34%),
+        linear-gradient(145deg, #111827 0%, #090b10 100%);
+      border-color: #263246;
+    }
+
+    .total-balance-card small,
+    .balance-sub,
+    .entry-amount.income {
+      color: #5b93ff;
+    }
+
+    .summary-tile,
+    .insight,
+    .day-detail,
+    .day-total,
+    .day-chart-card {
+      background: #11151d;
+      border-color: #202632;
+    }
+
+    .input-box textarea,
+    .type-select {
+      background: #10141c;
+      border-color: #252d3a;
+    }
+
+    .input-box textarea::placeholder {
+      color: #747f91;
+    }
+
+    .primary-btn {
+      border-radius: 999px;
+      background: #377dff;
+      box-shadow: 0 12px 24px rgba(55, 125, 255, 0.26);
+    }
+
+    .chip,
+    .pet-choice {
+      background: #10141c;
+      border-color: #252d3a;
+      color: #dce4f2;
+    }
+
+    .pet-choice.is-selected,
+    .page-token.current {
+      background: #377dff;
+      color: #fff;
+      border-color: #377dff;
+    }
+
+    .pet-card {
+      background:
+        radial-gradient(circle at 78% 18%, rgba(55, 125, 255, 0.22), transparent 34%),
+        linear-gradient(145deg, #111827 0%, #0b0d12 100%);
+      border-color: #263246;
+    }
+
+    .pet-info p,
+    .legend-row {
+      color: #a9b3c5;
+    }
+
+    .calendar .day,
+    .entry,
+    .empty {
+      background: #0f131b;
+      border-color: #202632;
+      color: #f8fafc;
+    }
+
+    .calendar .day:hover,
+    .bar-row:hover,
+    .bar-row:focus-visible,
+    .entry.detail-link:hover {
+      background: #151b26;
+      border-color: #2e74ff;
+      box-shadow: 0 14px 28px rgba(55, 125, 255, 0.14);
+    }
+
+    .weekday,
+    .entry-sub,
+    .panel-head p,
+    .title-wrap p,
+    .balance-label,
+    .summary-tile span,
+    .phone-head span {
+      color: #8a93a5;
+    }
+
+    .bar-track {
+      background: #222a36;
+    }
+
+    canvas,
+    .chart-preview {
+      background: #0d1118;
+      border-color: #202632;
+    }
+
+    .badge {
+      background: rgba(55, 125, 255, 0.16);
+      color: #74a6ff;
+    }
+
+    .mini-btn.danger {
+      background: rgba(255, 90, 95, 0.14);
+      color: #ff8b8f;
+    }
+
+    .icon-btn {
+      background: #171b24;
+      color: #dce4f2;
+    }
+
     @media (max-width: 980px) {
       .hero,
       .month-visuals {
@@ -1282,7 +1476,7 @@
       }
 
       .export-actions {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         width: 100%;
       }
 
@@ -1415,8 +1609,10 @@
           <div class="phone-title">
             <strong>AI 가계부</strong>
             <span>자동 분류 모드</span>
+            <span class="account-pill" id="accountLabel">내 계정</span>
           </div>
           <div class="export-actions">
+            <button class="quiet-btn" id="accountBtn">계정</button>
             <button class="quiet-btn" id="importJsonBtn">불러오기</button>
             <input id="importJsonInput" type="file" accept="application/json,.json" hidden>
             <button class="quiet-btn" id="exportTextBtn">TXT</button>
@@ -1583,6 +1779,9 @@
     const OLD_STORAGE_KEY = "ai-budget-book-v1";
     const BACKUP_STORAGE_KEY = "ai-budget-book-backup-before-clear";
     const PET_STORAGE_KEY = "ai-budget-book-pet";
+    const ACCOUNTS_KEY = "ai-budget-book-accounts";
+    const ACTIVE_ACCOUNT_KEY = "ai-budget-book-active-account";
+    const DEFAULT_ACCOUNT_ID = "local-main";
 
     const petProfiles = {
       pomeranian: { name: "포메라니안", moodName: "포메" },
@@ -1613,8 +1812,11 @@
       { name: "기타", icon: "•", color: "#94a3b8", words: [] }
     ];
 
+    const activeAccount = ensureActiveAccount();
+
     const state = {
-      entries: normalizeLoadedEntries(loadEntries()),
+      account: activeAccount,
+      entries: normalizeLoadedEntries(loadEntries(activeAccount.id)),
       month: toMonthValue(new Date()),
       ledgerPage: 0,
       pet: loadPetChoice()
@@ -1644,6 +1846,8 @@
       topCategory: document.getElementById("topCategory"),
       dailyAverage: document.getElementById("dailyAverage"),
       netBalance: document.getElementById("netBalance"),
+      accountLabel: document.getElementById("accountLabel"),
+      accountBtn: document.getElementById("accountBtn"),
       petCard: document.getElementById("petCard"),
       petMood: document.getElementById("petMood"),
       petTitle: document.getElementById("petTitle"),
@@ -1699,6 +1903,7 @@
       state.ledgerPage += 1;
       render();
     });
+    els.accountBtn.addEventListener("click", openAccountSwitcher);
     els.petSelector.querySelectorAll("[data-pet]").forEach((button) => {
       button.addEventListener("click", () => {
         state.pet = petProfiles[button.dataset.pet] ? button.dataset.pet : "pomeranian";
@@ -1865,6 +2070,7 @@
       const dailyAverage = Math.round(total / daysWithEntries);
       const monthLabel = formatMonthLabel(state.month);
 
+      els.accountLabel.textContent = state.account.name;
       els.pageTitle.textContent = `${monthLabel} 내 소비`;
       els.totalSpent.textContent = formatWon(total);
       els.totalCount.textContent = `${monthEntries.length}건`;
@@ -2090,10 +2296,10 @@
         if (value > 0) drawBarAmount(ctx, x + barWidth / 2, y, chartTop, formatWon(value));
       });
       drawDayLabels(ctx, days, width, pad, axisY);
-      ctx.fillStyle = "#151b28";
+      ctx.fillStyle = "#f8fafc";
       ctx.font = "900 28px Segoe UI";
       ctx.fillText(`${formatMonthLabel(state.month)} 날짜별 지출`, pad, 34);
-      ctx.fillStyle = "#768196";
+      ctx.fillStyle = "#8a93a5";
       ctx.font = "13px Segoe UI";
       ctx.fillText(`최대 ${formatWon(max)} · 막대 아래 숫자는 날짜`, pad, 58);
     }
@@ -2151,7 +2357,7 @@
         const y = 82 + index * 30;
         ctx.fillStyle = category.color;
         ctx.fillRect(x, y - 11, 13, 13);
-        ctx.fillStyle = "#334055";
+        ctx.fillStyle = "#dce4f2";
         ctx.font = "13px Segoe UI";
         ctx.fillText(`${name} ${formatWon(value)}`, x + 22, y);
       });
@@ -2183,10 +2389,10 @@
       const axisY = top + chartHeight;
       const stepX = periods.length > 1 ? chartWidth / (periods.length - 1) : 0;
 
-      ctx.fillStyle = "#151b28";
+      ctx.fillStyle = "#f8fafc";
       ctx.font = "900 26px Segoe UI";
       ctx.fillText("10일별 수입·지출 추이", left, 36);
-      ctx.fillStyle = "#768196";
+      ctx.fillStyle = "#8a93a5";
       ctx.font = "13px Segoe UI";
       ctx.fillText(`${periods[0].label}부터 ${periods[periods.length - 1].label}까지`, left, 60);
 
@@ -2198,13 +2404,13 @@
         const ratio = index / ticks;
         const value = max * (1 - ratio);
         const y = top + chartHeight * ratio;
-        ctx.strokeStyle = "#e8edf4";
+        ctx.strokeStyle = "#202632";
         ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(left, y);
         ctx.lineTo(canvas.width - right, y);
         ctx.stroke();
-        ctx.fillStyle = "#768196";
+        ctx.fillStyle = "#8a93a5";
         ctx.font = "11px Segoe UI";
         ctx.textAlign = "right";
         ctx.fillText(shortWon(value), left - 10, y + 4);
@@ -2214,7 +2420,7 @@
       periods.forEach((period, index) => {
         if (index % labelEvery !== 0 && index !== periods.length - 1) return;
         const x = periods.length > 1 ? left + stepX * index : left + chartWidth / 2;
-        ctx.fillStyle = "#768196";
+        ctx.fillStyle = "#8a93a5";
         ctx.font = "11px Segoe UI";
         ctx.textAlign = "center";
         ctx.fillText(period.shortLabel, x, axisY + 24);
@@ -2232,7 +2438,7 @@
       ctx.moveTo(x, y);
       ctx.lineTo(x + 30, y);
       ctx.stroke();
-      ctx.fillStyle = "#334055";
+      ctx.fillStyle = "#dce4f2";
       ctx.font = "800 13px Segoe UI";
       ctx.textAlign = "left";
       ctx.fillText(label, x + 40, y + 4);
@@ -2317,7 +2523,7 @@
     }
 
     function drawAxis(ctx, canvas, pad) {
-      ctx.strokeStyle = "#e8edf4";
+      ctx.strokeStyle = "#202632";
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(pad, canvas.height - 54);
@@ -2337,14 +2543,14 @@
         ctx.moveTo(pad, y);
         ctx.lineTo(canvas.width - pad, y);
         ctx.stroke();
-        ctx.fillStyle = "#768196";
+        ctx.fillStyle = "#8a93a5";
         ctx.fillText(shortWon(value), pad - 8, y + 4);
       });
       ctx.textAlign = "left";
     }
 
     function drawDayLabels(ctx, days, width, pad, axisY) {
-      ctx.fillStyle = "#768196";
+      ctx.fillStyle = "#8a93a5";
       ctx.font = "10px Segoe UI";
       ctx.textAlign = "center";
       for (let day = 1; day <= days; day++) {
@@ -2514,7 +2720,7 @@
 
     function clearCanvas(ctx, canvas) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "#fff";
+      ctx.fillStyle = "#0d1118";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -2677,6 +2883,7 @@
     function backupCurrentStorageBeforeClear() {
       const backup = mergeStoredEntries([
         ...state.entries,
+        ...readStoredEntries(getAccountStorageKey(state.account.id)),
         ...readStoredEntries(STORAGE_KEY),
         ...readStoredEntries(OLD_STORAGE_KEY),
         ...readStoredEntries(BACKUP_STORAGE_KEY)
@@ -2689,6 +2896,7 @@
     function restoreSavedEntries() {
       const restored = mergeStoredEntries([
         ...readStoredEntries(BACKUP_STORAGE_KEY),
+        ...readStoredEntries(getAccountStorageKey(state.account.id)),
         ...readStoredEntries(OLD_STORAGE_KEY),
         ...readStoredEntries(STORAGE_KEY),
         ...state.entries
@@ -2705,7 +2913,83 @@
     }
 
     function persist() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.entries));
+      localStorage.setItem(getAccountStorageKey(state.account.id), JSON.stringify(state.entries));
+      if (state.account.id === DEFAULT_ACCOUNT_ID) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.entries));
+      }
+    }
+
+    function getAccountStorageKey(accountId) {
+      return `ai-budget-book-account-${accountId}`;
+    }
+
+    function ensureActiveAccount() {
+      const accounts = readAccounts();
+      let activeId = localStorage.getItem(ACTIVE_ACCOUNT_KEY);
+      let active = accounts.find((account) => account.id === activeId);
+      if (active) return active;
+
+      active = accounts[0] || {
+        id: DEFAULT_ACCOUNT_ID,
+        name: "내 계정",
+        pin: "",
+        createdAt: new Date().toISOString()
+      };
+      if (!accounts.length) writeAccounts([active]);
+      localStorage.setItem(ACTIVE_ACCOUNT_KEY, active.id);
+      return active;
+    }
+
+    function readAccounts() {
+      try {
+        const value = JSON.parse(localStorage.getItem(ACCOUNTS_KEY) || "[]");
+        return Array.isArray(value) ? value.filter((account) => account && account.id && account.name) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function writeAccounts(accounts) {
+      localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+    }
+
+    function openAccountSwitcher() {
+      persist();
+      const accounts = readAccounts();
+      const names = accounts.map((account) => account.name).join(", ") || "내 계정";
+      const name = prompt(`계정 이름을 입력하세요.\n기존 계정: ${names}`, state.account.name);
+      if (!name) return;
+      const cleanName = name.trim();
+      if (!cleanName) return;
+
+      let nextAccounts = readAccounts();
+      let account = nextAccounts.find((item) => item.name.toLowerCase() === cleanName.toLowerCase());
+      const pin = prompt("PIN을 입력하세요. 새 계정이면 새 PIN으로 저장됩니다. 비워두면 PIN 없이 사용합니다.", "");
+      if (pin === null) return;
+
+      if (account) {
+        if ((account.pin || "") !== pin) {
+          showToast("PIN이 맞지 않습니다.");
+          return;
+        }
+      } else {
+        account = {
+          id: `acct-${Date.now().toString(36)}-${Math.random().toString(16).slice(2, 8)}`,
+          name: cleanName,
+          pin,
+          createdAt: new Date().toISOString()
+        };
+        nextAccounts = [...nextAccounts, account];
+        writeAccounts(nextAccounts);
+        localStorage.setItem(getAccountStorageKey(account.id), JSON.stringify([]));
+      }
+
+      state.account = account;
+      localStorage.setItem(ACTIVE_ACCOUNT_KEY, account.id);
+      state.entries = normalizeLoadedEntries(loadEntries(account.id));
+      state.ledgerPage = 0;
+      render();
+      showToast(`${account.name} 계정으로 로그인했습니다.`);
     }
 
     function loadPetChoice() {
@@ -2713,12 +2997,15 @@
       return petProfiles[saved] ? saved : "pomeranian";
     }
 
-    function loadEntries() {
-      const current = readStoredEntries(STORAGE_KEY);
-      const legacy = readStoredEntries(OLD_STORAGE_KEY);
-      const merged = mergeStoredEntries([...legacy, ...current]);
-      if (legacy.length || merged.length !== current.length) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+    function loadEntries(accountId = DEFAULT_ACCOUNT_ID) {
+      const accountKey = getAccountStorageKey(accountId);
+      const accountEntries = readStoredEntries(accountKey);
+      const current = accountId === DEFAULT_ACCOUNT_ID ? readStoredEntries(STORAGE_KEY) : [];
+      const legacy = accountId === DEFAULT_ACCOUNT_ID ? readStoredEntries(OLD_STORAGE_KEY) : [];
+      const merged = mergeStoredEntries([...legacy, ...current, ...accountEntries]);
+      if (merged.length !== accountEntries.length || (accountId === DEFAULT_ACCOUNT_ID && (legacy.length || current.length))) {
+        localStorage.setItem(accountKey, JSON.stringify(merged));
+        if (accountId === DEFAULT_ACCOUNT_ID) localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
       }
       return merged;
     }
@@ -2763,7 +3050,6 @@
         }
         return entry;
       });
-      if (changed) localStorage.setItem(STORAGE_KEY, JSON.stringify(normalized));
       return normalized;
     }
 
