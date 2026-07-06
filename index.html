@@ -1116,7 +1116,7 @@
     .modal {
       position: fixed;
       inset: 0;
-      z-index: 20;
+      z-index: 60;
       display: grid;
       place-items: center;
       width: 100%;
@@ -1238,6 +1238,10 @@
       height: 10px;
       border-radius: 50%;
       flex: 0 0 auto;
+    }
+
+    .mobile-section-tabs {
+      display: none;
     }
 
     /* Coinbase Wallet-inspired dark app shell */
@@ -1432,20 +1436,51 @@
     }
 
     @media (max-width: 640px) {
+      body {
+        overflow: hidden;
+        background: #000;
+      }
+
       .app {
         width: min(100%, 460px);
-        padding-top: 18px;
+        min-height: 100dvh;
+        padding-top: max(12px, env(safe-area-inset-top));
+        padding-bottom: 86px;
         padding-inline: 0;
       }
 
       .topbar {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 0 14px;
+        align-items: center;
+        flex-direction: row;
+        padding: 0 18px;
+        margin-bottom: 12px;
       }
 
       .title-wrap h1 {
-        font-size: 22px;
+        font-size: 17px;
+        font-weight: 900;
+      }
+
+      .title-wrap p {
+        display: none;
+      }
+
+      .month-picker {
+        gap: 5px;
+        padding: 5px;
+        border-radius: 999px;
+        background: #11151d;
+        box-shadow: none;
+      }
+
+      .month-picker button {
+        width: 28px;
+        height: 28px;
+      }
+
+      .month-picker input {
+        width: 104px;
+        font-size: 13px;
       }
 
       .summary-grid {
@@ -1455,14 +1490,15 @@
       .hero {
         display: flex;
         grid-template-columns: none;
-        gap: 12px;
+        gap: 0;
         overflow-x: auto;
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
-        scroll-padding-inline: 14px;
+        scroll-padding-inline: 0;
         overscroll-behavior-x: contain;
         -webkit-overflow-scrolling: touch;
-        padding: 0 14px 14px;
+        padding: 0;
+        height: calc(100dvh - 82px - env(safe-area-inset-top));
       }
 
       .hero::-webkit-scrollbar {
@@ -1475,15 +1511,21 @@
 
       .phone-card,
       .content > .panel {
-        flex: 0 0 calc(100vw - 28px);
-        width: calc(100vw - 28px);
-        max-width: 432px;
-        min-height: calc(100dvh - 136px);
-        max-height: calc(100dvh - 136px);
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: none;
+        min-height: 100%;
+        max-height: 100%;
         overflow-y: auto;
         overscroll-behavior-y: contain;
         scroll-snap-align: start;
         scroll-snap-stop: always;
+        padding: 22px 18px 104px;
+        border: 0;
+        border-radius: 0;
+        outline: 0;
+        background: #05070b;
+        box-shadow: none;
       }
 
       .phone-card {
@@ -1506,9 +1548,9 @@
       .phone-head {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 14px;
         align-items: stretch;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
       }
 
       .phone-title {
@@ -1525,6 +1567,108 @@
         min-height: 40px;
         padding: 0 8px;
         text-align: center;
+      }
+
+      .total-balance-card {
+        margin: 10px 0 18px;
+        padding: 24px 4px 18px;
+        background: transparent;
+        border: 0;
+        text-align: center;
+      }
+
+      .total-balance-card span,
+      .balance-label {
+        font-size: 13px;
+      }
+
+      .total-balance-card strong {
+        font-size: 42px;
+        letter-spacing: 0;
+      }
+
+      .balance {
+        font-size: 36px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .summary-tile {
+        min-height: 74px;
+        border: 1px solid #1a2130;
+        border-radius: 22px;
+        background: linear-gradient(145deg, #111722, #0b0f16);
+      }
+
+      .pet-card {
+        border-radius: 28px;
+      }
+
+      .panel-head {
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .panel-head h2 {
+        font-size: 24px;
+      }
+
+      .panel-head p {
+        display: none;
+      }
+
+      .month-visuals {
+        gap: 16px;
+      }
+
+      .calendar .day,
+      .entry {
+        background: #0c111a;
+        border-color: #192131;
+      }
+
+      .entry {
+        border-radius: 22px;
+        padding: 14px;
+      }
+
+      canvas {
+        border-radius: 24px;
+        border-color: #1a2130;
+      }
+
+      .mobile-section-tabs {
+        position: fixed;
+        left: 14px;
+        right: 14px;
+        bottom: max(12px, env(safe-area-inset-bottom));
+        z-index: 30;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+        padding: 7px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        background: rgba(13, 17, 24, 0.86);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+      }
+
+      .mobile-section-tabs button {
+        min-height: 44px;
+        border-radius: 999px;
+        background: transparent;
+        color: #8a93a5;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .mobile-section-tabs button.is-active {
+        background: #377dff;
+        color: #fff;
       }
 
       .input-row {
@@ -1799,6 +1943,12 @@
         </section>
       </div>
     </section>
+    <nav class="mobile-section-tabs" aria-label="모바일 섹션 이동">
+      <button type="button" class="is-active" data-mobile-section="0">입력</button>
+      <button type="button" data-mobile-section="1">월별</button>
+      <button type="button" data-mobile-section="2">그래프</button>
+      <button type="button" data-mobile-section="3">내역</button>
+    </nav>
   </main>
 
   <div class="modal" id="chartModal" hidden>
@@ -1910,6 +2060,8 @@
       importJsonBtn: document.getElementById("importJsonBtn"),
       importJsonInput: document.getElementById("importJsonInput"),
       clearBtn: document.getElementById("clearBtn"),
+      hero: document.querySelector(".hero"),
+      mobileTabs: document.querySelector(".mobile-section-tabs"),
       toast: document.getElementById("toast")
     };
 
@@ -1943,6 +2095,7 @@
       state.ledgerPage += 1;
       render();
     });
+    setupMobileSectionTabs();
     els.accountBtn.addEventListener("click", openAccountSwitcher);
     els.petSelector.querySelectorAll("[data-pet]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -1973,6 +2126,35 @@
         els.naturalInput.focus();
       });
     });
+
+    function setupMobileSectionTabs() {
+      if (!els.hero || !els.mobileTabs) return;
+      const tabs = Array.from(els.mobileTabs.querySelectorAll("[data-mobile-section]"));
+      const sections = () => [document.querySelector(".phone-card"), ...document.querySelectorAll(".content > .panel")].filter(Boolean);
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = sections()[Number(tab.dataset.mobileSection)];
+          if (!target) return;
+          target.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+        });
+      });
+
+      let ticking = false;
+      els.hero.addEventListener("scroll", () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const railLeft = els.hero.getBoundingClientRect().left;
+          const nextIndex = sections().reduce((best, section, index) => {
+            const distance = Math.abs(section.getBoundingClientRect().left - railLeft);
+            return distance < best.distance ? { index, distance } : best;
+          }, { index: 0, distance: Infinity }).index;
+          tabs.forEach((tab, index) => tab.classList.toggle("is-active", index === nextIndex));
+          ticking = false;
+        });
+      }, { passive: true });
+    }
 
     function addNaturalEntries() {
       const lines = els.naturalInput.value.split(/\n+/).map((line) => line.trim()).filter(Boolean);
