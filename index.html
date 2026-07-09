@@ -1228,6 +1228,20 @@
       font-weight: 900;
     }
 
+    .day-total-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .day-total-actions .mini-btn {
+      flex: 0 0 auto;
+      min-height: 34px;
+      border-radius: 999px;
+      padding: 0 12px;
+    }
+
     .day-chart-card {
       display: grid;
       grid-template-columns: 150px minmax(0, 1fr);
@@ -3283,6 +3297,42 @@
       };
     }
 
+    function parseLineForDate(line, date) {
+      const amount = extractAmount(line);
+      if (!amount) return null;
+      const type = inferType(line);
+      const category = type === "income" ? "수입" : inferCategory(line);
+      return {
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        date,
+        title: cleanTitle(line),
+        category,
+        type,
+        amount,
+        raw: line,
+        auto: true
+      };
+    }
+
+    function addEntriesOnDate(date) {
+      const value = prompt(`${date}에 추가할 내역을 적어주세요.\n예: 점심 한식뷔페 12000원\n여러 줄도 가능합니다.`);
+      if (value === null) return;
+      const lines = value.split(/\n+/).map((line) => line.trim()).filter(Boolean);
+      if (!lines.length) return;
+      const parsed = lines.map((line) => parseLineForDate(line, date)).filter(Boolean);
+      if (!parsed.length) {
+        showToast("금액을 찾지 못했습니다. 예: 점심 12000원");
+        return;
+      }
+      state.entries = [...parsed, ...state.entries].sort((a, b) => b.date.localeCompare(a.date));
+      state.ledgerPage = 0;
+      persist();
+      render();
+      openDayDetail(Number(date.slice(-2)));
+      triggerPetReaction(parsed.some((entry) => entry.type === "income") ? "income" : "expense");
+      showToast(`${date}에 ${parsed.length}건을 추가했습니다.`);
+    }
+
     function extractAmount(line) {
       const normalized = line.replace(/,/g, "");
       const tokens = normalized.match(/(\d+(?:\.\d+)?)\s*(만원|천원|원)?/g) || [];
@@ -3915,6 +3965,15 @@
           ${entries.map((entry) => renderEntryDetail(entry)).join("")}
         `
         : '<div class="empty">이 날짜에는 기록된 내역이 없습니다.</div>';
+      const dayActionHeader = `
+        <div class="day-total day-total-actions">
+          <span>지출 ${formatWon(expenseTotal)} · 수입 ${formatWon(incomeTotal)}</span>
+          <button class="mini-btn" data-add-on-date="${escapeHtml(date)}">이 날짜에 추가</button>
+        </div>
+      `;
+      els.dayDetail.innerHTML = entries.length
+        ? `${dayActionHeader}${renderDayPie(entries)}${entries.map((entry) => renderEntryDetail(entry)).join("")}`
+        : `${dayActionHeader}<div class="empty">이 날짜에는 아직 기록이 없습니다.</div>`;
       bindDetailEntryNavigation();
       els.chartModal.hidden = false;
     }
@@ -3960,6 +4019,12 @@
             event.preventDefault();
             goToLedgerEntry(row.dataset.goEntry);
           }
+        });
+      });
+      els.dayDetail.querySelectorAll("[data-add-on-date]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          addEntriesOnDate(button.dataset.addOnDate);
         });
       });
       els.dayDetail.querySelectorAll("[data-detail-edit]").forEach((button) => {
