@@ -2683,6 +2683,114 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
+
+    /* Final layout polish: keep the app-like dark shell without squashed controls/charts. */
+    .phone-head {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: start;
+      gap: 12px;
+    }
+
+    .phone-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+      white-space: normal;
+    }
+
+    .phone-title strong {
+      flex: 0 0 auto;
+      line-height: 1.15;
+    }
+
+    .phone-title > span:not(.account-pill) {
+      min-width: 0;
+      white-space: normal;
+      line-height: 1.25;
+    }
+
+    .account-pill {
+      flex: 0 1 auto;
+      max-width: 100%;
+      white-space: nowrap;
+    }
+
+    .export-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      width: 100%;
+    }
+
+    .export-actions .quiet-btn {
+      min-width: 0;
+      width: 100%;
+      padding: 0 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .month-visuals canvas {
+      width: 100%;
+      height: auto !important;
+      min-height: 0 !important;
+      max-height: none;
+      object-fit: contain;
+    }
+
+    #dailyChart {
+      aspect-ratio: 720 / 320;
+    }
+
+    #categoryChart {
+      aspect-ratio: 520 / 320;
+    }
+
+    #monthlyTrendChart {
+      aspect-ratio: 1080 / 380;
+    }
+
+    @media (min-width: 981px) {
+      .phone-head {
+        margin-bottom: 20px;
+      }
+
+      .phone-title strong {
+        font-size: 22px;
+      }
+
+      .phone-title > span:not(.account-pill) {
+        font-size: 13px;
+      }
+
+      .export-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .month-visuals {
+        align-items: start;
+      }
+
+      #categoryChart {
+        align-self: start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .export-actions {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .export-actions .quiet-btn {
+        min-height: 38px;
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2711,7 +2819,6 @@
             <button class="quiet-btn" id="accountBtn">계정</button>
             <button class="quiet-btn" id="importJsonBtn">불러오기</button>
             <input id="importJsonInput" type="file" accept="application/json,.json" hidden>
-            <button class="quiet-btn" id="exportTextBtn">TXT</button>
             <button class="quiet-btn" id="exportBtn">CSV</button>
           </div>
         </div>
@@ -3027,7 +3134,7 @@
       });
     });
     els.exportBtn.addEventListener("click", exportCsv);
-    els.exportTextBtn.addEventListener("click", exportText);
+    els.exportTextBtn?.addEventListener("click", exportText);
     els.importJsonBtn.addEventListener("click", () => els.importJsonInput.click());
     els.importJsonInput.addEventListener("change", importJsonBackup);
     els.clearBtn.addEventListener("click", () => {
