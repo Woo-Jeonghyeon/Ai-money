@@ -28,6 +28,10 @@
       font-family: "Inter", "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     * { box-sizing: border-box; }
 
     [hidden] { display: none !important; }
@@ -193,6 +197,36 @@
       margin-top: 6px;
       color: var(--blue);
       font-weight: 800;
+    }
+
+    .wallet-actions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0 0 20px;
+    }
+
+    .wallet-action {
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      padding: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .wallet-action span {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 16px 28px rgba(49, 130, 246, 0.26);
     }
 
     .balance {
@@ -1420,6 +1454,880 @@
       color: #dce4f2;
     }
 
+    .app {
+      width: min(1240px, calc(100% - 42px));
+    }
+
+    .topbar {
+      min-height: 64px;
+      padding: 0 4px;
+    }
+
+    .title-wrap h1 {
+      font-size: 32px;
+      font-weight: 950;
+    }
+
+    .hero {
+      grid-template-columns: minmax(340px, 430px) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .phone-card {
+      padding: 24px;
+      border-radius: 38px;
+      background:
+        linear-gradient(180deg, rgba(18, 23, 33, 0.98), rgba(5, 7, 11, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .phone-card::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      pointer-events: none;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.035);
+    }
+
+    .phone-head {
+      position: relative;
+      z-index: 1;
+    }
+
+    .total-balance-card {
+      position: relative;
+      margin: 6px 0 12px;
+      padding: 28px 10px 20px;
+      border: 0;
+      background: transparent;
+      text-align: center;
+    }
+
+    .total-balance-card span {
+      font-size: 13px;
+    }
+
+    .total-balance-card strong {
+      font-size: clamp(40px, 5vw, 56px);
+      letter-spacing: 0;
+    }
+
+    .wallet-action {
+      color: #dce4f2;
+    }
+
+    .wallet-action span {
+      width: 56px;
+      height: 56px;
+      background:
+        linear-gradient(145deg, #4285ff 0%, #145dff 100%);
+      box-shadow: 0 18px 34px rgba(55, 125, 255, 0.34);
+    }
+
+    .summary-tile {
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: linear-gradient(145deg, rgba(21, 27, 38, 0.96), rgba(11, 15, 22, 0.96));
+    }
+
+    .panel {
+      background: rgba(9, 12, 18, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 22px 54px rgba(0, 0, 0, 0.32);
+    }
+
+    .panel-head h2 {
+      font-size: 22px;
+      font-weight: 950;
+    }
+
+    .entry {
+      background: linear-gradient(145deg, #0f141d, #0a0d13);
+      border-color: rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+    }
+
+    .entry-icon {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    }
+
+    .input-box textarea {
+      min-height: 118px;
+      border-radius: 24px;
+    }
+
+    @media (min-width: 981px) {
+      body {
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 18% 10%, rgba(55, 125, 255, 0.22), transparent 28%),
+          radial-gradient(circle at 88% 22%, rgba(37, 201, 133, 0.13), transparent 32%),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 34%),
+          #03050a;
+        perspective: 1600px;
+      }
+
+      .app {
+        width: min(1380px, calc(100% - 56px));
+        padding: 26px 0 44px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 18px;
+        z-index: 20;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        margin-bottom: 24px;
+        padding: 16px 18px 16px 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 32px;
+        background: rgba(5, 7, 11, 0.78);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.34);
+        backdrop-filter: blur(20px);
+      }
+
+      .title-wrap h1 {
+        font-size: 36px;
+        line-height: 1.05;
+      }
+
+      .title-wrap p {
+        margin-top: 8px;
+        font-size: 14px;
+      }
+
+      .month-picker {
+        align-self: center;
+        min-height: 52px;
+        padding: 8px;
+        border-radius: 999px;
+        background: #111722;
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .month-picker button {
+        width: 38px;
+        height: 38px;
+        background: #1d2533;
+      }
+
+      .month-picker input {
+        width: 146px;
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .hero {
+        grid-template-columns: minmax(380px, 450px) minmax(0, 1fr);
+        align-items: start;
+        gap: 28px;
+        perspective: 1400px;
+      }
+
+      .phone-card {
+        position: sticky;
+        top: 116px;
+        height: calc(100vh - 140px);
+        min-height: 760px;
+        overflow: auto;
+        padding: 30px 28px 34px;
+        border-radius: 46px;
+        background:
+          radial-gradient(circle at 70% 0%, rgba(63, 131, 248, 0.18), transparent 30%),
+          linear-gradient(155deg, rgba(28, 35, 49, 0.98), rgba(6, 8, 13, 0.98) 48%, rgba(2, 4, 8, 0.99));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow:
+          22px 36px 90px rgba(0, 0, 0, 0.58),
+          -10px -10px 34px rgba(90, 128, 180, 0.08),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12),
+          inset 0 -42px 70px rgba(0, 0, 0, 0.28);
+        scrollbar-width: none;
+        scroll-behavior: smooth;
+        transition: transform 420ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 420ms ease, border-color 420ms ease;
+        will-change: transform;
+        transform: rotateX(0deg) rotateY(-1.5deg);
+      }
+
+      .phone-card::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .phone-card::before {
+        content: "";
+        display: block;
+        width: 76px;
+        height: 5px;
+        margin: 0 auto 18px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .phone-card::after {
+        inset: 12px;
+        border-radius: 36px;
+        border-color: rgba(255, 255, 255, 0.055);
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.26);
+      }
+
+      .phone-head {
+        align-items: flex-start;
+        gap: 18px;
+        margin-bottom: 12px;
+      }
+
+      .phone-title strong {
+        font-size: 22px;
+      }
+
+      .phone-title span {
+        line-height: 1.45;
+      }
+
+      .export-actions {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        gap: 8px;
+        justify-content: end;
+      }
+
+      .quiet-btn {
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 999px;
+        background: linear-gradient(145deg, #1b2432, #101620);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        box-shadow:
+          7px 9px 18px rgba(0, 0, 0, 0.34),
+          -4px -4px 12px rgba(255, 255, 255, 0.035),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .total-balance-card {
+        margin: 10px 0 18px;
+        padding: 24px 0 14px;
+        text-align: left;
+      }
+
+      .total-balance-card strong {
+        font-size: 52px;
+        line-height: 1;
+      }
+
+      .wallet-actions {
+        margin: 0 0 26px;
+        padding: 14px;
+        border-radius: 28px;
+        background:
+          linear-gradient(145deg, rgba(24, 31, 44, 0.98), rgba(7, 10, 15, 0.98));
+        border: 1px solid rgba(255, 255, 255, 0.055);
+        box-shadow:
+          12px 16px 34px rgba(0, 0, 0, 0.42),
+          -7px -7px 20px rgba(255, 255, 255, 0.035),
+          inset 0 1px 0 rgba(255, 255, 255, 0.075);
+      }
+
+      .wallet-action {
+        font-size: 12px;
+        color: #c9d3e4;
+        transition: transform 220ms ease, color 220ms ease;
+      }
+
+      .wallet-action span {
+        width: 58px;
+        height: 58px;
+        font-size: 21px;
+        background:
+          radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.35), transparent 24%),
+          linear-gradient(145deg, #4b91ff 0%, #1e68ff 58%, #0b42c8 100%);
+        box-shadow:
+          10px 14px 26px rgba(4, 18, 55, 0.48),
+          -4px -4px 14px rgba(97, 151, 255, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.32),
+          inset 0 -9px 16px rgba(0, 31, 126, 0.34);
+        transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms ease;
+      }
+
+      .wallet-action:hover {
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+
+      .wallet-action:hover span,
+      .wallet-action:focus-visible span {
+        transform: translateY(-3px) scale(1.04);
+        box-shadow: 0 24px 42px rgba(55, 125, 255, 0.45);
+      }
+
+      .balance {
+        font-size: 40px;
+        line-height: 1.05;
+      }
+
+      .summary-grid {
+        gap: 12px;
+      }
+
+      .summary-tile {
+        min-height: 96px;
+        padding: 18px;
+        border-radius: 26px;
+        background:
+          linear-gradient(145deg, rgba(24, 31, 44, 0.98), rgba(9, 13, 20, 0.98));
+        border: 1px solid rgba(255, 255, 255, 0.065);
+        box-shadow:
+          10px 14px 28px rgba(0, 0, 0, 0.34),
+          -5px -5px 16px rgba(255, 255, 255, 0.035),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .summary-tile strong {
+        margin-top: 8px;
+        font-size: 21px;
+      }
+
+      .pet-card {
+        border-radius: 30px;
+        display: grid;
+        grid-template-columns: 126px minmax(0, 1fr);
+        align-items: center;
+        gap: 18px;
+        padding: 24px 18px;
+        min-height: 206px;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 82% 74%, rgba(55, 125, 255, 0.35), transparent 34%),
+          linear-gradient(145deg, rgba(30, 43, 68, 0.98), rgba(9, 12, 20, 0.98));
+        box-shadow:
+          14px 20px 44px rgba(0, 0, 0, 0.42),
+          -7px -7px 20px rgba(255, 255, 255, 0.04),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .pet-stage {
+        width: 124px;
+        min-height: 124px;
+      }
+
+      .pet-info {
+        min-width: 0;
+      }
+
+      .pet-info strong {
+        font-size: 20px;
+        line-height: 1.22;
+      }
+
+      .pet-info p {
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .pet-selector {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .pet-choice {
+        min-width: 0;
+        height: 34px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: linear-gradient(145deg, #151d29, #0a0f17);
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.07),
+          5px 7px 14px rgba(0, 0, 0, 0.24);
+      }
+
+      .input-box {
+        margin-top: 18px;
+        padding-bottom: 2px;
+      }
+
+      .input-box textarea {
+        min-height: 120px;
+        max-height: 150px;
+        padding: 18px;
+        font-size: 15px;
+        line-height: 1.65;
+        background:
+          linear-gradient(145deg, rgba(17, 23, 34, 0.98), rgba(7, 10, 15, 0.98));
+        border-color: rgba(255, 255, 255, 0.08);
+        box-shadow:
+          inset 6px 8px 18px rgba(0, 0, 0, 0.36),
+          inset -4px -4px 12px rgba(255, 255, 255, 0.035);
+        scrollbar-width: thin;
+      }
+
+      .input-row {
+        grid-template-columns: minmax(0, 1fr) 132px;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .type-select,
+      .primary-btn {
+        min-height: 48px;
+        border-radius: 18px;
+        box-shadow:
+          8px 11px 20px rgba(0, 0, 0, 0.30),
+          -4px -4px 12px rgba(255, 255, 255, 0.035),
+          inset 0 1px 0 rgba(255, 255, 255, 0.10);
+      }
+
+      .primary-btn {
+        background:
+          radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.28), transparent 26%),
+          linear-gradient(145deg, #5197ff, #1f6fff 58%, #0d48d8);
+      }
+
+      .primary-btn:active,
+      .wallet-action:active span,
+      .quiet-btn:active,
+      .pet-choice:active {
+        transform: translateY(1px) scale(0.98);
+      }
+
+      .content {
+        display: grid;
+        gap: 24px;
+        scroll-snap-type: y proximity;
+      }
+
+      .content > .panel:first-child {
+        min-height: 560px;
+      }
+
+      .panel {
+        padding: 28px;
+        border-radius: 34px;
+        background:
+          radial-gradient(circle at 92% 8%, rgba(55, 125, 255, 0.11), transparent 25%),
+          linear-gradient(145deg, rgba(20, 27, 40, 0.96), rgba(6, 9, 15, 0.96));
+        box-shadow:
+          18px 28px 74px rgba(0, 0, 0, 0.42),
+          -8px -8px 26px rgba(86, 111, 148, 0.055),
+          inset 0 1px 0 rgba(255, 255, 255, 0.075),
+          inset 0 -34px 66px rgba(0, 0, 0, 0.22);
+        scroll-snap-align: start;
+        opacity: 0.78;
+        transform: translateY(22px) scale(0.988);
+        transition:
+          opacity 620ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1),
+          border-color 360ms ease,
+          box-shadow 360ms ease;
+        will-change: transform, opacity;
+      }
+
+      .panel.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .panel.is-focused,
+      .phone-card.is-focused {
+        border-color: rgba(55, 125, 255, 0.36);
+        box-shadow:
+          0 34px 96px rgba(0, 0, 0, 0.42),
+          0 0 0 1px rgba(55, 125, 255, 0.18),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .panel-head {
+        margin-bottom: 24px;
+      }
+
+      .panel-head h2 {
+        font-size: 26px;
+        letter-spacing: 0;
+      }
+
+      .panel-head p {
+        margin-top: 6px;
+        font-size: 14px;
+      }
+
+      .month-visuals {
+        grid-template-columns: minmax(430px, 1.25fr) minmax(260px, 0.75fr);
+        align-items: stretch;
+        gap: 20px;
+      }
+
+      .calendar {
+        padding: 12px;
+        border-radius: 30px;
+        background:
+          linear-gradient(145deg, rgba(22, 29, 42, 0.95), rgba(7, 11, 17, 0.95));
+        border: 1px solid rgba(255, 255, 255, 0.055);
+        box-shadow:
+          inset 5px 7px 18px rgba(0, 0, 0, 0.30),
+          inset -5px -5px 14px rgba(255, 255, 255, 0.025);
+        transition: transform 360ms ease, opacity 360ms ease;
+      }
+
+      .calendar .day {
+        min-height: 74px;
+        border-radius: 22px;
+        background:
+          linear-gradient(145deg, rgba(18, 24, 35, 0.98), rgba(6, 9, 14, 0.98));
+        box-shadow:
+          8px 11px 20px rgba(0, 0, 0, 0.24),
+          -4px -4px 10px rgba(255, 255, 255, 0.024),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: transform 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+      }
+
+      .calendar .day:hover {
+        transform: translateY(-4px) scale(1.015);
+      }
+
+      .calendar .day strong {
+        font-size: 15px;
+      }
+
+      .calendar .day span {
+        font-size: 12px;
+      }
+
+      .bars {
+        padding: 16px;
+        border-radius: 30px;
+        background:
+          linear-gradient(145deg, rgba(22, 29, 42, 0.95), rgba(7, 11, 17, 0.95));
+        border: 1px solid rgba(255, 255, 255, 0.055);
+        box-shadow:
+          12px 16px 34px rgba(0, 0, 0, 0.24),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: transform 360ms ease, opacity 360ms ease;
+      }
+
+      .bar-row {
+        padding: 9px 0;
+        border-radius: 18px;
+        transition: transform 220ms ease, background 220ms ease;
+      }
+
+      .bar-row:hover {
+        transform: translateX(4px);
+      }
+
+      .bar-label {
+        font-size: 14px;
+      }
+
+      .bar-track {
+        height: 10px;
+      }
+
+      .insights {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 20px;
+      }
+
+      .insight {
+        min-height: 84px;
+        padding: 18px;
+        border-radius: 24px;
+        transition: transform 240ms ease, background 240ms ease;
+      }
+
+      canvas {
+        min-height: 320px;
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at 78% 18%, rgba(55, 125, 255, 0.12), transparent 28%),
+          linear-gradient(145deg, rgba(18, 25, 38, 0.98), rgba(6, 9, 15, 0.98));
+        box-shadow:
+          14px 18px 42px rgba(0, 0, 0, 0.32),
+          -6px -6px 18px rgba(255, 255, 255, 0.03),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        cursor: zoom-in;
+        transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
+      }
+
+      canvas:hover {
+        transform: translateY(-3px);
+        border-color: rgba(55, 125, 255, 0.32);
+        box-shadow: 0 22px 48px rgba(0, 0, 0, 0.28);
+      }
+
+      #monthlyTrendChart {
+        grid-column: 1 / -1;
+        min-height: 360px;
+      }
+
+      .ledger-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .entry {
+        min-height: 92px;
+        padding: 18px 18px;
+        border-radius: 28px;
+        background:
+          linear-gradient(135deg, rgba(255, 255, 255, 0.048), rgba(255, 255, 255, 0.015));
+        transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background 220ms ease;
+      }
+
+      .entry:hover {
+        transform: translateY(-2px);
+      }
+
+      .entry-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 21px;
+      }
+
+      .entry-title strong {
+        font-size: 17px;
+      }
+
+      .entry-amount {
+        font-size: 18px;
+      }
+
+      .modal-content {
+        width: min(1080px, calc(100% - 56px));
+        border-radius: 34px;
+      }
+
+      .content.is-refreshing .panel.is-visible,
+      .phone-card.is-refreshing {
+        animation: surfaceRefresh 440ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .content.is-refreshing .calendar,
+      .content.is-refreshing .bars,
+      .content.is-refreshing canvas,
+      .content.is-refreshing .entry {
+        animation: softSlideIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      @keyframes surfaceRefresh {
+        from {
+          opacity: 0.72;
+          transform: translateY(18px) scale(0.99);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @keyframes softSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    }
+
+    @media (min-width: 981px) {
+      body {
+        background:
+          radial-gradient(circle at 20% -10%, rgba(55, 125, 255, 0.24), transparent 34%),
+          radial-gradient(circle at 100% 12%, rgba(92, 52, 255, 0.16), transparent 28%),
+          #05070b;
+        perspective: none;
+      }
+
+      .hero {
+        perspective: none;
+      }
+
+      .phone-card {
+        height: auto;
+        min-height: 0;
+        max-height: calc(100vh - 140px);
+        padding: 24px;
+        transform: none;
+        background:
+          linear-gradient(180deg, rgba(18, 23, 33, 0.98), rgba(5, 7, 11, 0.98));
+        box-shadow: 0 34px 90px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .phone-card::before {
+        margin-bottom: 14px;
+      }
+
+      .quiet-btn,
+      .summary-tile,
+      .type-select,
+      .primary-btn,
+      .pet-choice {
+        box-shadow: none;
+      }
+
+      .wallet-actions {
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.035);
+        box-shadow: none;
+      }
+
+      .wallet-action span {
+        background: linear-gradient(145deg, #4285ff 0%, #145dff 100%);
+        box-shadow: 0 18px 34px rgba(55, 125, 255, 0.34);
+      }
+
+      .summary-tile {
+        background: linear-gradient(145deg, rgba(21, 27, 38, 0.96), rgba(11, 15, 22, 0.96));
+      }
+
+      .pet-card {
+        grid-template-columns: 124px minmax(0, 1fr);
+        gap: 14px;
+        min-height: 154px;
+        padding: 14px;
+        background:
+          radial-gradient(circle at 78% 18%, rgba(55, 125, 255, 0.22), transparent 34%),
+          linear-gradient(145deg, #111827 0%, #0b0d12 100%);
+        box-shadow: none;
+      }
+
+      .pet-stage {
+        width: auto;
+        min-height: 0;
+      }
+
+      .pet-info strong {
+        font-size: 18px;
+      }
+
+      .pet-selector {
+        grid-column: 1 / -1;
+      }
+
+      .input-box textarea {
+        min-height: 118px;
+        max-height: none;
+        background: #10141c;
+        box-shadow: none;
+      }
+
+      .panel {
+        background: rgba(9, 12, 18, 0.92);
+        box-shadow: 0 22px 54px rgba(0, 0, 0, 0.32);
+      }
+
+      .calendar,
+      .bars,
+      canvas {
+        background: #0d1118;
+        box-shadow: none;
+      }
+
+      .calendar .day {
+        background: #0c1119;
+        box-shadow: none;
+      }
+    }
+
+    .wallet-actions {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 10px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.028);
+      border: 1px solid rgba(255, 255, 255, 0.065);
+    }
+
+    .wallet-action {
+      grid-template-columns: 34px minmax(0, 1fr);
+      justify-items: stretch;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 7px 12px 7px 8px;
+      border-radius: 18px;
+      background: #10141c;
+      color: #dce4f2;
+      text-align: left;
+      box-shadow: none;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .wallet-action span {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: rgba(55, 125, 255, 0.16);
+      color: #74a6ff;
+      font-size: 16px;
+      box-shadow: none;
+    }
+
+    .wallet-action:hover,
+    .wallet-action:focus-visible {
+      background: #151b26;
+      transform: translateY(-1px);
+    }
+
+    .wallet-action:hover span,
+    .wallet-action:focus-visible span {
+      transform: none;
+      box-shadow: none;
+    }
+
+    @media (max-width: 640px) {
+      .wallet-actions {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+      }
+
+      .wallet-action {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        min-height: 54px;
+        padding: 6px 4px;
+        border-radius: 18px;
+        background: #10141c;
+        font-size: 11px;
+        text-align: center;
+      }
+
+      .wallet-action span {
+        width: 26px;
+        height: 26px;
+        border-radius: 10px;
+        font-size: 13px;
+      }
+    }
+
+    .wallet-actions {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
     @media (max-width: 980px) {
       .hero,
       .month-visuals {
@@ -1530,6 +2438,10 @@
 
       .phone-card {
         position: static;
+      }
+
+      .phone-card::after {
+        display: none;
       }
 
       .pet-card {
@@ -1808,6 +2720,13 @@
           <span>총 잔액</span>
           <strong id="totalBalance">0원</strong>
           <small id="totalBalanceNote">전체 수입 - 전체 지출</small>
+        </div>
+
+        <div class="wallet-actions" aria-label="빠른 이동">
+          <button class="wallet-action" type="button" data-jump-section="input"><span>＋</span>추가</button>
+          <button class="wallet-action" type="button" data-jump-section="month"><span>⌁</span>월별</button>
+          <button class="wallet-action" type="button" data-jump-section="chart"><span>↗</span>그래프</button>
+          <button class="wallet-action" type="button" data-jump-section="ledger"><span>≡</span>내역</button>
         </div>
 
         <div class="balance-label">이번 달 소비/수입</div>
@@ -2096,6 +3015,8 @@
       render();
     });
     setupMobileSectionTabs();
+    setupWalletActions();
+    setupDesktopMotion();
     els.accountBtn.addEventListener("click", openAccountSwitcher);
     els.petSelector.querySelectorAll("[data-pet]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -2154,6 +3075,64 @@
           ticking = false;
         });
       }, { passive: true });
+    }
+
+    function setupWalletActions() {
+      document.querySelectorAll("[data-jump-section]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const panels = document.querySelectorAll(".content > .panel");
+          const targetMap = {
+            input: document.querySelector(".phone-card"),
+            month: panels[0],
+            chart: panels[1],
+            ledger: document.getElementById("recentLedgerSection")
+          };
+          const target = targetMap[button.dataset.jumpSection];
+          if (!target) return;
+          target.scrollIntoView({ behavior: "smooth", block: window.innerWidth > 980 ? "start" : "nearest", inline: "start" });
+          highlightSurface(target);
+          if (button.dataset.jumpSection === "input") {
+            window.setTimeout(() => els.naturalInput.focus(), 350);
+          }
+        });
+      });
+    }
+
+    function setupDesktopMotion() {
+      const panels = Array.from(document.querySelectorAll(".content > .panel"));
+      if (!panels.length) return;
+
+      if (!("IntersectionObserver" in window)) {
+        panels.forEach((panel) => panel.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
+        });
+      }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+
+      panels.forEach((panel) => observer.observe(panel));
+    }
+
+    function highlightSurface(target) {
+      if (!target || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      target.classList.remove("is-focused");
+      void target.offsetWidth;
+      target.classList.add("is-focused");
+      window.setTimeout(() => target.classList.remove("is-focused"), 760);
+    }
+
+    function animateSurfaces() {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const surfaces = [document.querySelector(".content"), document.querySelector(".phone-card")].filter(Boolean);
+      surfaces.forEach((surface) => {
+        surface.classList.remove("is-refreshing");
+        void surface.offsetWidth;
+        surface.classList.add("is-refreshing");
+        window.setTimeout(() => surface.classList.remove("is-refreshing"), 520);
+      });
     }
 
     function addNaturalEntries() {
@@ -2319,6 +3298,7 @@
       drawDailyChart(expenses);
       drawCategoryChart(categoryTotals);
       drawMonthlyTrendChart();
+      requestAnimationFrame(animateSurfaces);
     }
 
     function updatePetStatus({ totalBalance, monthNet, remaining, total, budget }) {
@@ -2457,6 +3437,7 @@
             </div>
             <div class="entry-sub">${entry.date} · ${escapeHtml(entry.raw)}</div>
             <div class="entry-actions">
+              <button class="mini-btn" data-edit>수정</button>
               <button class="mini-btn" data-reclassify>재분류</button>
               <button class="mini-btn danger" data-delete>삭제</button>
             </div>
@@ -2467,6 +3448,9 @@
           state.entries = state.entries.filter((item) => item.id !== entry.id);
           persist();
           render();
+        });
+        row.querySelector("[data-edit]").addEventListener("click", () => {
+          editEntry(entry);
         });
         row.querySelector("[data-reclassify]").addEventListener("click", () => {
           const next = inferCategory(`${entry.raw} ${entry.title}`);
@@ -2814,6 +3798,9 @@
       els.chartPreview.hidden = true;
       els.chartPreview.removeAttribute("src");
       els.dayDetail.hidden = false;
+      els.dayDetail.dataset.detailType = "day";
+      els.dayDetail.dataset.detailDay = String(day);
+      delete els.dayDetail.dataset.detailCategory;
       els.dayDetail.innerHTML = entries.length
         ? `
           <div class="day-total">지출 ${formatWon(expenseTotal)} · 수입 ${formatWon(incomeTotal)}</div>
@@ -2838,6 +3825,9 @@
       els.chartPreview.hidden = true;
       els.chartPreview.removeAttribute("src");
       els.dayDetail.hidden = false;
+      els.dayDetail.dataset.detailType = "category";
+      els.dayDetail.dataset.detailCategory = categoryName;
+      delete els.dayDetail.dataset.detailDay;
       els.dayDetail.innerHTML = entries.length
         ? `
           <div class="day-total">
@@ -2853,12 +3843,49 @@
 
     function bindDetailEntryNavigation() {
       els.dayDetail.querySelectorAll("[data-go-entry]").forEach((row) => {
-        row.addEventListener("click", () => goToLedgerEntry(row.dataset.goEntry));
+        row.addEventListener("click", (event) => {
+          if (event.target.closest("button")) return;
+          goToLedgerEntry(row.dataset.goEntry);
+        });
         row.addEventListener("keydown", (event) => {
+          if (event.target.closest("button")) return;
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             goToLedgerEntry(row.dataset.goEntry);
           }
+        });
+      });
+      els.dayDetail.querySelectorAll("[data-detail-edit]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const entry = findEntryById(button.dataset.detailEdit);
+          if (!entry) return;
+          editEntry(entry, { keepDetailOpen: true });
+        });
+      });
+      els.dayDetail.querySelectorAll("[data-detail-reclassify]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const entry = findEntryById(button.dataset.detailReclassify);
+          if (!entry) return;
+          entry.category = entry.type === "income" ? "수입" : inferCategory(`${entry.raw} ${entry.title}`);
+          entry.auto = true;
+          persist();
+          render();
+          refreshOpenDetail();
+          showToast(`${entry.title}을 ${entry.category}(으)로 분류했습니다.`);
+        });
+      });
+      els.dayDetail.querySelectorAll("[data-detail-delete]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const entry = findEntryById(button.dataset.detailDelete);
+          if (!entry || !confirm(`${entry.title} 내역을 삭제할까요?`)) return;
+          state.entries = state.entries.filter((item) => item.id !== entry.id);
+          persist();
+          render();
+          refreshOpenDetail();
+          showToast("내역을 삭제했습니다.");
         });
       });
     }
@@ -2907,10 +3934,80 @@
               <span class="badge">AI ${escapeHtml(entry.category)}</span>
             </div>
             <div class="entry-sub">${escapeHtml(entry.raw)}</div>
+            <div class="entry-actions">
+              <button class="mini-btn" data-detail-edit="${escapeHtml(String(entry.id))}">수정</button>
+              <button class="mini-btn" data-detail-reclassify="${escapeHtml(String(entry.id))}">재분류</button>
+              <button class="mini-btn danger" data-detail-delete="${escapeHtml(String(entry.id))}">삭제</button>
+            </div>
           </div>
           <div class="entry-amount ${entry.type === "income" ? "income" : ""}">${entry.type === "income" ? "+" : "-"}${formatWon(entry.amount)}</div>
         </div>
       `;
+    }
+
+    function findEntryById(entryId) {
+      return state.entries.find((entry) => String(entry.id) === String(entryId));
+    }
+
+    function editEntry(entry, options = {}) {
+      const nextTitle = prompt("내용을 수정하세요.", entry.title);
+      if (nextTitle === null) return;
+      const nextAmountText = prompt("금액을 수정하세요.", String(entry.amount));
+      if (nextAmountText === null) return;
+      const nextAmount = parseEditableAmount(nextAmountText);
+      if (!nextAmount) {
+        showToast("금액을 다시 확인해 주세요.");
+        return;
+      }
+      const nextDate = prompt("날짜를 수정하세요. 예: 2026-07-06", entry.date);
+      if (nextDate === null) return;
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(nextDate)) {
+        showToast("날짜는 2026-07-06 형식으로 입력해 주세요.");
+        return;
+      }
+      const nextTypeText = prompt("유형을 입력하세요. 지출 또는 수입", entry.type === "income" ? "수입" : "지출");
+      if (nextTypeText === null) return;
+      const nextType = /수입|income/i.test(nextTypeText) ? "income" : "expense";
+      let nextCategory = nextType === "income" ? "수입" : entry.category;
+      if (nextType === "expense") {
+        const categoryText = prompt("분류를 수정하세요. 비워두면 AI가 다시 판단합니다.", entry.category);
+        if (categoryText === null) return;
+        nextCategory = categoryText.trim() || inferCategory(`${nextTitle} ${entry.raw}`);
+      }
+
+      entry.title = nextTitle.trim() || entry.title;
+      entry.amount = nextAmount;
+      entry.date = nextDate;
+      entry.type = nextType;
+      entry.category = nextCategory;
+      entry.raw = `${entry.date} ${entry.title} ${entry.amount}원`;
+      entry.auto = false;
+      state.entries.sort((a, b) => b.date.localeCompare(a.date));
+      persist();
+      render();
+      if (options.keepDetailOpen) refreshOpenDetail();
+      showToast("내역을 수정했습니다.");
+    }
+
+    function parseEditableAmount(value) {
+      const normalized = String(value).replace(/,/g, "").trim();
+      const match = normalized.match(/(\d+(?:\.\d+)?)\s*(만원|천원|원)?/);
+      if (!match) return 0;
+      const number = Number(match[1]);
+      const unit = match[2] || "원";
+      if (unit === "만원") return Math.round(number * 10000);
+      if (unit === "천원") return Math.round(number * 1000);
+      return Math.round(number);
+    }
+
+    function refreshOpenDetail() {
+      if (els.chartModal.hidden || els.dayDetail.hidden) return;
+      const type = els.dayDetail.dataset.detailType;
+      if (type === "day") {
+        openDayDetail(Number(els.dayDetail.dataset.detailDay));
+      } else if (type === "category") {
+        openCategoryDetail(els.dayDetail.dataset.detailCategory);
+      }
     }
 
     function goToLedgerEntry(entryId) {
