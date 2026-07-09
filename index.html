@@ -3371,6 +3371,11 @@
 
     function inferCategory(line) {
       const text = line.toLowerCase();
+      if (/돈\s*빌려|빌려주|빌려줌|빌려준|차용|대여|송금|이체|정산|돈거래|빌린\s*돈/.test(text)) return "돈거래";
+      if (/폰\s*카메라|휴대폰\s*카메라|스마트폰\s*카메라|카메라|폰카|가전|전자제품|전자\s*제품/.test(text)) return "가전";
+      if (/야구\s*직관|야구장|직관/.test(text)) return "식비";
+      if (/야구\s*공|야구공|야구\s*글러브|글러브|운동용품|운동\s*용품/.test(text)) return "운동";
+      if (/카스테라|카스텔라|빵|식빵|베이커리|케이크|머핀|마카롱|베이글|샌드위치|아이스\s*티|아이스티/.test(text)) return "식비";
       if (/출장|출장숙소|출장숙소예약|출장비|업무출장|출장신청/.test(text)) return "출장";
       if (/숙소|숙박|출장숙소|호텔|모텔|게스트하우스|펜션|여관/.test(text)) return "주거";
       if (/머리|미용실|헤어|커트|컷트|염색|펌|파마|다운펌|드라이|이발|바버|바버샵/.test(text)) return "헤어";
@@ -3525,7 +3530,7 @@
     }
 
     function hasForcedCategory(text) {
-      return /카드\s*[갑값]|주식|주식투자|투자|재테크|증권|증권사|\betf\b|펀드|배당|코인|가상자산|적금|예금|저축|청약|\bisa\b|\birp\b|연금|gpt|chat\s*gpt|openai|클로드|claude|제미나이|gemini|코파일럿|copilot|퍼플렉시티|perplexity|ai\s*구독|구독료|출장|출장숙소|출장숙소예약|출장비|업무출장|출장신청|인형\s*뽑기|인형뽑기|오락실|보드게임|방탈출|pc방|피시방|아이스\s*티|아이스티|머핀|마카롱|베이글|샌드위치|베이커리|케이크|머리|미용실|헤어|커트|컷트|염색|다운펌|드라이|이발|바버|바버샵|망고|모찌|과일|딸기|바나나|사과|귤|포도|수박|복숭아|찹쌀떡|햇반|즉석밥|참치|참치캔|통조림|스팸|김|쌀|화장실청소도구|청소도구|청소용품|생활용품|프로틴|단백질|헬스장?|여친|남친|애인|연인|데이트|커플|기념일/.test(text);
+      return /돈\s*빌려|빌려주|빌려줌|빌려준|차용|대여|송금|이체|정산|돈거래|빌린\s*돈|폰\s*카메라|휴대폰\s*카메라|스마트폰\s*카메라|카메라|폰카|가전|전자제품|전자\s*제품|야구\s*직관|야구장|직관|야구\s*공|야구공|야구\s*글러브|글러브|운동용품|운동\s*용품|카스테라|카스텔라|빵|식빵|카드\s*[갑값]|주식|주식투자|투자|재테크|증권|증권사|\betf\b|펀드|배당|코인|가상자산|적금|예금|저축|청약|\bisa\b|\birp\b|연금|gpt|chat\s*gpt|openai|클로드|claude|제미나이|gemini|코파일럿|copilot|퍼플렉시티|perplexity|ai\s*구독|구독료|출장|출장숙소|출장숙소예약|출장비|업무출장|출장신청|인형\s*뽑기|인형뽑기|오락실|보드게임|방탈출|pc방|피시방|아이스\s*티|아이스티|머핀|마카롱|베이글|샌드위치|베이커리|케이크|머리|미용실|헤어|커트|컷트|염색|다운펌|드라이|이발|바버|바버샵|망고|모찌|과일|딸기|바나나|사과|귤|포도|수박|복숭아|찹쌀떡|햇반|즉석밥|참치|참치캔|통조림|스팸|김|쌀|화장실청소도구|청소도구|청소용품|생활용품|프로틴|단백질|헬스장?|여친|남친|애인|연인|데이트|커플|기념일/.test(text);
     }
 
     function renderCalendar(expenses) {
@@ -4561,7 +4566,14 @@
     }
 
     function getCategory(name) {
-      return categories.find((category) => category.name === name) || categories[categories.length - 1];
+      const fixedCategories = {
+        "식비": { name: "식비", icon: "•", color: "#f97316", words: [] },
+        "운동": { name: "운동", icon: "•", color: "#84cc16", words: [] },
+        "가전": { name: "가전", icon: "•", color: "#38bdf8", words: [] },
+        "돈거래": { name: "돈거래", icon: "•", color: "#14b8a6", words: [] },
+        "기타": { name: "기타", icon: "•", color: "#94a3b8", words: [] }
+      };
+      return fixedCategories[name] || categories.find((category) => category.name === name) || fixedCategories["기타"];
     }
 
     function formatWon(value) {
