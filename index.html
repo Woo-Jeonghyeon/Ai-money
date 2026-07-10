@@ -3160,6 +3160,7 @@
       ledgerPage: 0,
       pet: loadPetChoice()
     };
+    let graphMotionAnimation;
     const petMotionAnimations = {};
 
     const els = {
@@ -3376,7 +3377,6 @@
       });
     }
 
-    let graphMotionAnimation;
     function initGraphMotion() {
       if (!els.graphMotion) return;
       if (!window.lottie) {
