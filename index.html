@@ -2886,7 +2886,7 @@
       overflow: visible;
     }
 
-    .pet-card .money-dog {
+    .pet-card.lottie-ready .money-dog {
       opacity: 0;
       pointer-events: none;
     }
@@ -3407,27 +3407,41 @@
     async function initPetMotions() {
       if (!window.lottie || !els.petCard) return;
       if (petMotionAnimations.income || petMotionAnimations.expense) return;
-      if (els.petIncomeMotion) {
-        const incomeData = await fetch("./assets/lottie/Astronaut%20Dog.json").then((response) => response.json());
-        petMotionAnimations.income = window.lottie.loadAnimation({
-          container: els.petIncomeMotion,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData: incomeData
-        });
+      try {
+        if (els.petIncomeMotion) {
+          const incomeData = await fetch("./assets/lottie/Astronaut%20Dog.json").then((response) => {
+            if (!response.ok) throw new Error("Astronaut Dog motion not found");
+            return response.json();
+          });
+          petMotionAnimations.income = window.lottie.loadAnimation({
+            container: els.petIncomeMotion,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            animationData: incomeData
+          });
+        }
+        if (els.petExpenseMotion) {
+          const expenseData = await fetch("./assets/lottie/Angry%20Dog.json").then((response) => {
+            if (!response.ok) throw new Error("Angry Dog motion not found");
+            return response.json();
+          });
+          petMotionAnimations.expense = window.lottie.loadAnimation({
+            container: els.petExpenseMotion,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            animationData: expenseData
+          });
+        }
+        if (petMotionAnimations.income || petMotionAnimations.expense) {
+          els.petCard.classList.add("lottie-ready");
+          showPetMotion("income");
+        }
+      } catch (error) {
+        console.warn("캐릭터 모션을 불러오지 못해 기본 강아지로 표시합니다.", error);
+        els.petCard.classList.remove("lottie-ready", "show-income-motion", "show-expense-motion");
       }
-      if (els.petExpenseMotion) {
-        const expenseData = await fetch("./assets/lottie/Angry%20Dog.json").then((response) => response.json());
-        petMotionAnimations.expense = window.lottie.loadAnimation({
-          container: els.petExpenseMotion,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData: expenseData
-        });
-      }
-      showPetMotion("income");
     }
 
     function showPetMotion(type) {
