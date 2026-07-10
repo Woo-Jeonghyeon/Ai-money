@@ -1211,6 +1211,14 @@
       background: #fff;
     }
 
+    .modal-trend-canvas {
+      display: block;
+      width: 100%;
+      max-height: calc(100dvh - 94px);
+      padding: 16px;
+      background: #fff;
+    }
+
     .day-detail {
       display: grid;
       gap: 10px;
@@ -1450,6 +1458,11 @@
 
     canvas,
     .chart-preview {
+      background: #0d1118;
+      border-color: #202632;
+    }
+
+    .modal-trend-canvas {
       background: #0d1118;
       border-color: #202632;
     }
@@ -2673,6 +2686,11 @@
         padding: 8px;
       }
 
+      .modal-trend-canvas {
+        max-height: calc(100dvh - 78px);
+        padding: 8px;
+      }
+
       .day-chart-card {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -3116,8 +3134,8 @@
         <h3 id="chartModalTitle">그래프 확대</h3>
         <button class="icon-btn" id="closeChartModal" title="닫기">×</button>
       </div>
-      <div class="graph-motion modal-graph-motion" id="graphMotion" aria-label="그래프 모션"></div>
       <img class="chart-preview" id="chartPreview" alt="확대된 그래프">
+      <canvas class="modal-trend-canvas" id="modalTrendCanvas" width="1080" height="560" aria-label="애니메이션 추이 그래프" hidden></canvas>
       <div class="day-detail" id="dayDetail" hidden></div>
     </div>
   </div>
@@ -3221,6 +3239,7 @@
       chartModal: document.getElementById("chartModal"),
       chartModalTitle: document.getElementById("chartModalTitle"),
       chartPreview: document.getElementById("chartPreview"),
+      modalTrendCanvas: document.getElementById("modalTrendCanvas"),
       dayDetail: document.getElementById("dayDetail"),
       closeChartModal: document.getElementById("closeChartModal"),
       insights: document.getElementById("insights"),
@@ -3965,8 +3984,7 @@
       });
     }
 
-    function drawMonthlyTrendChart() {
-      const canvas = els.monthlyTrendChart;
+    function drawMonthlyTrendChart(canvas = els.monthlyTrendChart, progress = 1) {
       const ctx = canvas.getContext("2d");
       clearCanvas(ctx, canvas);
 
@@ -4028,8 +4046,8 @@
         ctx.fillText(period.shortLabel, x, axisY + 24);
       });
 
-      drawTrendLine(ctx, incomeValues, "#3182f6", left, top, chartWidth, chartHeight, max);
-      drawTrendLine(ctx, expenseValues, "#ef4444", left, top, chartWidth, chartHeight, max);
+      drawTrendLine(ctx, incomeValues, "#3182f6", left, top, chartWidth, chartHeight, max, progress);
+      drawTrendLine(ctx, expenseValues, "#ef4444", left, top, chartWidth, chartHeight, max, Math.max(0, progress - 0.12) / 0.88);
       ctx.textAlign = "left";
     }
 
@@ -4046,34 +4064,60 @@
       ctx.fillText(label, x + 40, y + 4);
     }
 
-    function drawTrendLine(ctx, values, color, left, top, width, height, max) {
+    function drawTrendLine(ctx, values, color, left, top, width, height, max, progress = 1) {
       const stepX = values.length > 1 ? width / (values.length - 1) : 0;
       const points = values.map((value, index) => ({
         x: values.length > 1 ? left + stepX * index : left + width / 2,
         y: top + height - (value / max) * height,
         value
       }));
+      const clampedProgress = Math.max(0, Math.min(1, progress));
+
+      if (points.length === 1) {
+        if (clampedProgress <= 0) return;
+        drawTrendPoint(ctx, points[0], color);
+        return;
+      }
+
+      const totalSegments = Math.max(points.length - 1, 1);
+      const segmentProgress = clampedProgress * totalSegments;
+      const completeSegments = Math.floor(segmentProgress);
+      const partial = segmentProgress - completeSegments;
+      const visiblePoints = points.slice(0, Math.min(points.length, completeSegments + 1));
+      if (!visiblePoints.length) return;
 
       ctx.strokeStyle = color;
       ctx.lineWidth = 4;
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
       ctx.beginPath();
-      points.forEach((point, index) => {
+      visiblePoints.forEach((point, index) => {
         if (index === 0) ctx.moveTo(point.x, point.y);
         else ctx.lineTo(point.x, point.y);
       });
+      if (completeSegments < points.length - 1) {
+        const from = points[completeSegments];
+        const to = points[completeSegments + 1];
+        ctx.lineTo(
+          from.x + (to.x - from.x) * partial,
+          from.y + (to.y - from.y) * partial
+        );
+      }
       ctx.stroke();
 
-      points.forEach((point) => {
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffffff";
-        ctx.fill();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        ctx.stroke();
+      points.slice(0, Math.min(points.length, completeSegments + 1)).forEach((point) => {
+        drawTrendPoint(ctx, point, color);
       });
+    }
+
+    function drawTrendPoint(ctx, point, color) {
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, 5, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.stroke();
     }
 
     function getMonthlyTrendRange() {
@@ -4176,13 +4220,34 @@
     function openChartModal(canvas, title) {
       els.chartModalTitle.textContent = title;
       els.dayDetail.hidden = true;
+      els.modalTrendCanvas.hidden = true;
+      if (canvas === els.monthlyTrendChart) {
+        els.chartPreview.hidden = true;
+        els.chartPreview.removeAttribute("src");
+        els.chartModal.hidden = false;
+        animateModalTrendChart();
+        return;
+      }
       els.chartPreview.src = canvas.toDataURL("image/png");
       els.chartPreview.alt = `${title} 확대 그래프`;
       els.chartPreview.hidden = false;
       els.chartModal.hidden = false;
-      if (canvas === els.monthlyTrendChart) {
-        pulseGraphMotion();
-      }
+    }
+
+    function animateModalTrendChart() {
+      const canvas = els.modalTrendCanvas;
+      if (!canvas) return;
+      canvas.hidden = false;
+      const duration = 1100;
+      const startedAt = performance.now();
+      const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+      const frame = (now) => {
+        if (els.chartModal.hidden || canvas.hidden) return;
+        const progress = Math.min(1, (now - startedAt) / duration);
+        drawMonthlyTrendChart(canvas, easeOutCubic(progress));
+        if (progress < 1) requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
     }
 
     function openDayDetail(day) {
@@ -4196,6 +4261,7 @@
       els.chartModalTitle.textContent = `${formatMonthLabel(state.month)} ${day}일 상세`;
       els.chartPreview.hidden = true;
       els.chartPreview.removeAttribute("src");
+      els.modalTrendCanvas.hidden = true;
       els.dayDetail.hidden = false;
       els.dayDetail.dataset.detailType = "day";
       els.dayDetail.dataset.detailDay = String(day);
@@ -4232,6 +4298,7 @@
       els.chartModalTitle.textContent = `${formatMonthLabel(state.month)} ${category.icon} ${categoryName} 상세`;
       els.chartPreview.hidden = true;
       els.chartPreview.removeAttribute("src");
+      els.modalTrendCanvas.hidden = true;
       els.dayDetail.hidden = false;
       els.dayDetail.dataset.detailType = "category";
       els.dayDetail.dataset.detailCategory = categoryName;
@@ -4448,6 +4515,7 @@
     function closeChartModal() {
       els.chartModal.hidden = true;
       els.chartPreview.removeAttribute("src");
+      els.modalTrendCanvas.hidden = true;
       els.dayDetail.hidden = true;
       els.graphMotion?.classList.remove("is-showing", "is-refreshing");
     }
