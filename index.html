@@ -3388,7 +3388,7 @@
         renderer: "svg",
         loop: true,
         autoplay: true,
-        path: "./assets/lottie/Financial%20Graph%20Loader.json"
+        path: "./assets/lottie/financial-graph-loader.json"
       });
       graphMotionAnimation.addEventListener("DOMLoaded", () => {
         els.graphMotion.classList.add("is-loaded");
@@ -3409,7 +3409,7 @@
       if (petMotionAnimations.income || petMotionAnimations.expense) return;
       try {
         if (els.petIncomeMotion) {
-          const incomeData = await fetch("./assets/lottie/Astronaut%20Dog.json").then((response) => {
+          const incomeData = await fetch("./assets/lottie/astronaut-dog.json").then((response) => {
             if (!response.ok) throw new Error("Astronaut Dog motion not found");
             return response.json();
           });
@@ -3422,7 +3422,7 @@
           });
         }
         if (els.petExpenseMotion) {
-          const expenseData = await fetch("./assets/lottie/Angry%20Dog.json").then((response) => {
+          const expenseData = await fetch("./assets/lottie/angry-dog.json").then((response) => {
             if (!response.ok) throw new Error("Angry Dog motion not found");
             return response.json();
           });
