@@ -1,10 +1,13 @@
-const CACHE_NAME = "ai-budget-book-pwa-v25";
+const CACHE_NAME = "ai-budget-book-pwa-v27";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
   "./icon-192.png",
-  "./icon-512.png"
+  "./icon-512.png",
+  "./assets/lottie/Financial Graph Loader.json",
+  "./assets/lottie/Astronaut Dog.json",
+  "./assets/lottie/Angry Dog.json"
 ];
 
 self.addEventListener("install", (event) => {
