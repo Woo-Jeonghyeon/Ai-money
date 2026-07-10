@@ -1,4 +1,4 @@
-const CACHE_NAME = "ai-budget-book-pwa-v32";
+const CACHE_NAME = "ai-budget-book-pwa-v33";
 const APP_SHELL = [
   "./",
   "./index.html",
