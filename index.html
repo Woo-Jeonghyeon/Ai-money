@@ -1166,6 +1166,7 @@
     .modal[hidden] { display: none; }
 
     .modal-content {
+      position: relative;
       width: min(980px, 100%);
       max-width: 100%;
       max-height: calc(100dvh - 24px);
@@ -2807,9 +2808,9 @@
     }
 
     .graph-motion {
-      width: min(180px, 46vw);
-      height: 86px;
-      margin: -8px 0 10px;
+      width: min(190px, 34vw);
+      height: 92px;
+      margin: 0;
       border-radius: 22px;
       background:
         radial-gradient(circle at 28% 30%, rgba(55, 125, 255, 0.18), transparent 38%),
@@ -2818,8 +2819,21 @@
       place-items: center;
       overflow: hidden;
       pointer-events: none;
-      opacity: 0.92;
+      opacity: 0;
+      transform: translateY(-10px) scale(0.9);
       transition: transform 280ms ease, opacity 280ms ease;
+    }
+
+    .modal-graph-motion {
+      position: absolute;
+      right: 54px;
+      top: 74px;
+      z-index: 3;
+    }
+
+    .modal-graph-motion.is-showing {
+      opacity: 0.94;
+      transform: translateY(0) scale(1);
     }
 
     .graph-motion svg {
@@ -2829,7 +2843,7 @@
     }
 
     .graph-motion.is-refreshing {
-      transform: translateY(-3px) scale(1.04);
+      transform: translateY(0) scale(1.04);
       opacity: 1;
     }
 
@@ -2855,10 +2869,8 @@
 
     @media (min-width: 981px) {
       .graph-motion {
-        justify-self: end;
-        width: 154px;
-        height: 72px;
-        margin: 0;
+        width: 190px;
+        height: 92px;
       }
     }
 
@@ -3063,7 +3075,6 @@
               <h2>그래프</h2>
               <p>누르면 크게 볼 수 있습니다.</p>
             </div>
-            <div class="graph-motion" id="graphMotion" aria-label="그래프 모션"></div>
           </div>
           <div class="month-visuals">
             <canvas id="dailyChart" width="720" height="320" aria-label="날짜별 지출 그래프"></canvas>
@@ -3105,6 +3116,7 @@
         <h3 id="chartModalTitle">그래프 확대</h3>
         <button class="icon-btn" id="closeChartModal" title="닫기">×</button>
       </div>
+      <div class="graph-motion modal-graph-motion" id="graphMotion" aria-label="그래프 모션"></div>
       <img class="chart-preview" id="chartPreview" alt="확대된 그래프">
       <div class="day-detail" id="dayDetail" hidden></div>
     </div>
@@ -3397,10 +3409,11 @@
 
     function pulseGraphMotion() {
       if (!els.graphMotion) return;
-      els.graphMotion.classList.remove("is-refreshing");
+      els.graphMotion.classList.remove("is-showing", "is-refreshing");
       void els.graphMotion.offsetWidth;
-      els.graphMotion.classList.add("is-refreshing");
-      window.setTimeout(() => els.graphMotion?.classList.remove("is-refreshing"), 420);
+      els.graphMotion.classList.add("is-showing", "is-refreshing");
+      window.setTimeout(() => els.graphMotion?.classList.remove("is-refreshing"), 520);
+      window.setTimeout(() => els.graphMotion?.classList.remove("is-showing"), 1800);
       if (graphMotionAnimation) graphMotionAnimation.goToAndPlay(0, true);
     }
 
@@ -3669,7 +3682,6 @@
       drawDailyChart(expenses);
       drawCategoryChart(categoryTotals);
       drawMonthlyTrendChart();
-      pulseGraphMotion();
       requestAnimationFrame(animateSurfaces);
     }
 
@@ -4157,6 +4169,9 @@
       els.chartPreview.alt = `${title} 확대 그래프`;
       els.chartPreview.hidden = false;
       els.chartModal.hidden = false;
+      if (canvas === els.monthlyTrendChart) {
+        pulseGraphMotion();
+      }
     }
 
     function openDayDetail(day) {
@@ -4423,6 +4438,7 @@
       els.chartModal.hidden = true;
       els.chartPreview.removeAttribute("src");
       els.dayDetail.hidden = true;
+      els.graphMotion?.classList.remove("is-showing", "is-refreshing");
     }
 
     function clearCanvas(ctx, canvas) {
